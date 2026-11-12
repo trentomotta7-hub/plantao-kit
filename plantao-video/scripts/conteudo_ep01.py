@@ -211,7 +211,7 @@ def _counter(comp, lt):             # contador: o valor sobe de 0 até 190,3
     if lt < 1.1:
         return
     v = 190.3 * C.ease(min(1, (lt - 1.1) / 1.35))
-    big = st(PL(TB([f"R$ {v:.1f}", "MILHÕES"], 118, INK, "Anton.ttf"), 30, 14, YEL), -3.2)
+    big = st(PL(TB([("R$ %.1f" % v).replace(".", ","), "MILHÕES"], 118, INK, "Anton.ttf"), 30, 14, YEL), -3.2)
     comp.alpha_composite(big, (520 - big.width // 2, 1200 - big.height // 2))
 
 
