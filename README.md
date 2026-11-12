@@ -1,8 +1,10 @@
-# O PLANTÃO — kit de produção
+# MAPA SUJO — kit de produção
 
 Fábrica de episódios verticais (9:16) de notícia criminal em PT-BR: colagem de jornal + mapa animado do Brasil, montados para retenção e monetização no TikTok.
 
 Cada episódio novo custa **1 crédito** (só a narração). O resto é render determinístico.
+
+A série se chama **MAPA SUJO** e numera os episódios (MAPA 01, MAPA 02…). O kit/motor continua com o nome interno `plantao-video`; para trocar o nome no vídeo use `PLANTAO_NOME`.
 
 ## O que tem aqui
 

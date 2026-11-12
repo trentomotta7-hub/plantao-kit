@@ -1,9 +1,9 @@
 ---
 name: plantao-video
-description: Produz episódios verticais 9:16 em PT-BR de notícia criminal e crime organizado (break news) na estética colagem de jornal + mapa animado do Brasil, montados para retenção e monetização no TikTok. Use para criar vídeo de notícia policial, série de episódios sobre facções/PCC/Comando Vermelho, mapa explicativo animado com dados de estados, vídeo com cara de jornal colado, narração TTS com beat sheet, corte curto de 30s para Reels/Shorts.
+description: Produz episódios verticais 9:16 em PT-BR de notícia criminal e crime organizado (break news) na estética colagem de jornal + mapa animado do Brasil, montados para retenção e monetização no TikTok. Use para criar vídeo de notícia policial, série MAPA SUJO, episódios sobre facções/PCC/Comando Vermelho, mapa explicativo animado com dados de estados, vídeo com cara de jornal colado, narração TTS com beat sheet, corte curto de 30s para Reels/Shorts.
 ---
 
-# O PLANTÃO — fábrica de episódios
+# MAPA SUJO — fábrica de episódios
 
 Vídeo vertical de 62–75s, 1080×1920, 30fps, em 10 blocos que alternam **página de jornal colada** e **mapa animado do Brasil**. O corte é a batida: flash + drop de áudio em cada virada. Custo padrão: **1 crédito por episódio** (só a narração; o resto é render determinístico).
 

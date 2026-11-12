@@ -15,7 +15,7 @@ from engine import (TB, PL, st, paper, photo, cut, xmark, L, MapCard,
                     lit_seq, lit_static, INK, RED, YEL, BLUE, CYA, WHT, PAPER, C, M)
 
 IMG = f"{E.C.ASSETS}/img"
-TAG = "O PLANTÃO  ·  EP. 01"
+TAG = "MAPA SUJO  ·  01"
 
 ACCENT = {0: YEL, 1: RED, 2: YEL, 3: YEL, 4: YEL, 5: RED, 6: CYA, 7: RED, 8: YEL, 9: YEL}
 
@@ -114,7 +114,7 @@ def layers(i):
     elif i == 9:                    # CTA
         big = st(PL(TB(["COMENTA AÍ"], 124, INK, "Anton.ttf"), 30, 12, YEL), -2.2)
         q = st(PL(TB(["o que VOCÊ faria?"], 66), 24, 12), 1.5)
-        nxt = PL(TB(["PARTE 2 AMANHÃ", "· MESMA HORA ·"], 34, WHT, "Oswald.ttf", 600), 20, 12, INK)
+        nxt = PL(TB(["MAPA 02 AMANHÃ", "· MESMA HORA ·"], 34, WHT, "Oswald.ttf", 600), 20, 12, INK)
         out = [L(big, 540, 620, .2, 1.2),
                L(q, 540, 880, .9, 1.0),
                L(st(C.marker_arrow(300, 90, RED, 0), -90), 540, 1180, 1.6, 3),

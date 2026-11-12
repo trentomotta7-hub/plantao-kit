@@ -1,9 +1,9 @@
-# Ep. 01 — texto de publicação
+# MAPA SUJO · 01 — texto de publicação
 
 ## Títulos (testar A/B, um por post)
-1. Os EUA chamaram o PCC de terrorista. Aí o dinheiro deles congelou.
-2. O CV tá em 26 dos 27 estados. E a lista dos EUA atacou outra coisa.
-3. R$ 190 milhões na mira: o que a lista de terroristas muda de verdade
+1. MAPA SUJO 01: os EUA chamaram o PCC de terrorista. Aí o dinheiro congelou.
+2. MAPA SUJO 01: o CV tá em 26 dos 27 estados. E a lista atacou outra coisa.
+3. MAPA SUJO 01: R$ 190 milhões na mira. O que muda de verdade na esquina.
 
 ## Legenda
 Os EUA colocaram PCC e Comando Vermelho na lista de organizações terroristas.
@@ -19,13 +19,18 @@ A pergunta que fica: a lista é sobre a esquina ou sobre o dinheiro que paga a e
 Comenta o que você faria. 👇
 
 ## Hashtags
-#pcc #comandovermelho #segurancapublica #brasil #noticias #rioDeJaneiro
+#mapasujo #pcc #comandovermelho #segurancapublica #brasil #noticias #rioDeJaneiro
 #faccao #crimeorganizado #mapa #entenda
 
 ## Primeiros 3 segundos (o que segura o dedo)
 - Frame 1: manchete "EUA BOTAM O PCC E O CV NA LISTA DE TERRORISTAS" com carimbo CONFIRMADO
 - Áudio: "Os Estados Unidos botaram o PCC e o Comando Vermelho na lista de terroristas."
 - Fecho do gancho: "E na prática, não mudou NADA na esquina."
+
+## Padrão da série
+- Todo título começa com "MAPA SUJO NN:" — é o que faz o perfil virar coleção.
+- O número aparece no selo do vídeo (canto superior) e no fim ("MAPA 02 AMANHÃ").
+- Capa sempre com o mesmo cabeçalho, mapa do Brasil e um número em vermelho.
 
 ## Regras de publicação
 - Sempre com áudio original + trilha própria (evita claim).

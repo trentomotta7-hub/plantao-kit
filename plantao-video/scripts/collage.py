@@ -13,7 +13,7 @@ WORK = _os.environ.get("PLANTAO_WORK") or _os.path.join(_os.getcwd(), "work")
 F = f"{ASSETS}/fonts"
 EMO = f"{ASSETS}/emoji"
 OUT = f"{WORK}/cout"
-MASTHEAD = _os.environ.get("PLANTAO_NOME", "O PLANTÃO")
+MASTHEAD = _os.environ.get("PLANTAO_NOME", "MAPA SUJO")
 _os.makedirs(OUT, exist_ok=True)
 os.makedirs(OUT, exist_ok=True)
 
@@ -102,9 +102,12 @@ def make_paper(seed):
                fill=(0, 0, 0, 18), width=1)
 
     # masthead
-    mf = fnt("Playfair.ttf", 116, 900)
     mt = MASTHEAD
+    mf = fnt("Playfair.ttf", 116, 900)
     tw = d.textlength(mt, font=mf)
+    if tw > W - 120:                      # nome longo: encolhe até caber no cabeçalho
+        mf = fnt("Playfair.ttf", int(116 * (W - 120) / tw), 900)
+        tw = d.textlength(mt, font=mf)
     d.text(((W - tw) / 2, 62), mt, font=mf, fill=INK)
     d.line([56, 214, W - 56, 214], fill=INK, width=4)
     d.line([56, 224, W - 56, 224], fill=INK, width=1)
