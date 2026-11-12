@@ -65,3 +65,7 @@ ffmpeg -y -framerate 30 -i work/frames_out/f_%05d.jpg -i mix_ln.wav \
 - Emojis: Twemoji (Twitter/X) — CC-BY 4.0.
 - Malha dos estados: IBGE — domínio público.
 - Fotos em `assets/img`: geradas por IA para o projeto.
+
+## Licença
+Código sob MIT (`LICENSE`). Fontes, Twemoji, malha do IBGE e fotos têm licenças próprias — `CREDITOS.md`.
+Repositório público: pode clonar, forkar e adaptar. Se publicar uma versão, mantenha os créditos.
