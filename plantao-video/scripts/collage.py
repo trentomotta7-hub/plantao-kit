@@ -14,6 +14,8 @@ F = f"{ASSETS}/fonts"
 EMO = f"{ASSETS}/emoji"
 OUT = f"{WORK}/cout"
 MASTHEAD = _os.environ.get("PLANTAO_NOME", "MAPA SUJO")
+EDICAO = int(_os.environ.get("PLANTAO_EDICAO", "1"))
+DATA_ED = _os.environ.get("PLANTAO_DATA", "QUINTA-FEIRA, 12 DE NOVEMBRO DE 2026")
 _os.makedirs(OUT, exist_ok=True)
 os.makedirs(OUT, exist_ok=True)
 
@@ -112,7 +114,7 @@ def make_paper(seed):
     d.line([56, 214, W - 56, 214], fill=INK, width=4)
     d.line([56, 224, W - 56, 224], fill=INK, width=1)
     df = fnt("Oswald.ttf", 21, 400)
-    dt = "EDIÇÃO EXTRA  ·  BRASÍLIA  ·  QUINTA-FEIRA, 12 DE NOVEMBRO DE 2026"
+    dt = f"EDIÇÃO {EDICAO:03d}  ·  BRASÍLIA  ·  {DATA_ED}"
     d.text(((W - d.textlength(dt, font=df)) / 2, 236), dt, font=df, fill=(90, 84, 74))
     d.line([56, 268, W - 56, 268], fill=(0, 0, 0, 60), width=1)
 
@@ -127,7 +129,7 @@ def make_paper(seed):
     d = ImageDraw.Draw(img)
     d.line([56, 1786, W - 56, 1786], fill=(0, 0, 0, 70), width=1)
     ff = fnt("Oswald.ttf", 19, 400)
-    d.text((56, 1798), f"{MASTHEAD}  ·  EDIÇÃO EXTRA  ·  SEGURANÇA PÚBLICA", font=ff, fill=(120, 113, 101))
+    d.text((56, 1798), f"{MASTHEAD}  ·  EDIÇÃO {EDICAO:03d}  ·  SEGURANÇA PÚBLICA", font=ff, fill=(120, 113, 101))
     pt = "PÁGINA 1"
     d.text((W - 56 - d.textlength(pt, font=ff), 1798), pt, font=ff, fill=(120, 113, 101))
     return img.convert("RGB")

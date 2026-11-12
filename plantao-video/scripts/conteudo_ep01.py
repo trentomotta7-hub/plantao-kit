@@ -15,7 +15,7 @@ from engine import (TB, PL, st, paper, photo, cut, xmark, L, MapCard,
                     lit_seq, lit_static, INK, RED, YEL, BLUE, CYA, WHT, PAPER, C, M)
 
 IMG = f"{E.C.ASSETS}/img"
-TAG = "MAPA SUJO  ·  01"
+TAG = f"{E.C.MASTHEAD}  ·  EDIÇÃO {E.C.EDICAO:03d}"
 
 ACCENT = {0: YEL, 1: RED, 2: YEL, 3: YEL, 4: YEL, 5: RED, 6: CYA, 7: RED, 8: YEL, 9: YEL}
 
@@ -51,11 +51,11 @@ def layers(i):
         head = st(head, -1.4)
         ph = cut(photo(f"{IMG}/barricade.jpg", 790, 460, bright=1.12), 3, ("bottom",), (2, 0, 0))
         ph = st(ph, 1.8)
-        out = [L(head, 540, 600, .15, .6),
-               L(ph, 540, 1170, 2.0, 1.2),
-               L(st(C.stamp("CONFIRMADO", 66, RED, -12), 0), 700, 940, 3.4),
+        out = [L(head, 540, 600, 0.0, .6),
+               L(ph, 540, 1170, 0.25, 1.2),
+               L(st(C.stamp("CONFIRMADO", 66, RED, -12), 0), 700, 940, 1.9),
                L(st(C.marker("e na prática, nada mudou", 44, RED, -4, YEL), 0), 540, 1540, 6.2, 1.5),
-               L(C.emoji_sticker("1f525", 140), 900, 340, 7.4, 7)]
+               L(C.emoji_sticker("1f525", 140), 900, 340, 3.4, 7)]
 
     elif i == 2:                    # DINHEIRO: cartela amarela + foto + carimbo
         ph = cut(photo(f"{IMG}/cash_table.jpg", 720, 470), 5, ("bottom",), (1, 0, 0))
@@ -114,7 +114,7 @@ def layers(i):
     elif i == 9:                    # CTA
         big = st(PL(TB(["COMENTA AÍ"], 124, INK, "Anton.ttf"), 30, 12, YEL), -2.2)
         q = st(PL(TB(["o que VOCÊ faria?"], 66), 24, 12), 1.5)
-        nxt = PL(TB(["MAPA 02 AMANHÃ", "· MESMA HORA ·"], 34, WHT, "Oswald.ttf", 600), 20, 12, INK)
+        nxt = PL(TB(["PARTE 2 AMANHÃ", "· MESMA HORA ·"], 34, WHT, "Oswald.ttf", 600), 20, 12, INK)
         out = [L(big, 540, 620, .2, 1.2),
                L(q, 540, 880, .9, 1.0),
                L(st(C.marker_arrow(300, 90, RED, 0), -90), 540, 1180, 1.6, 3),

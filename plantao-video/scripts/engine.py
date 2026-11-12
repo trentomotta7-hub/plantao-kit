@@ -194,7 +194,7 @@ def render(t):
         frame = M.BG.copy()
         frame = MOD.MAP_BLOCKS[i](frame, lt)
         z = 1.02 + .055 * p
-        sh = 9 * max(0.0, 1 - lt / .24) ** 2
+        sh = 13 * max(0.0, 1 - lt / .26) ** 2
         dx = (sh * math.sin(lt * 90)) / W
         dy = (sh * math.cos(lt * 67)) / H
         out = C.crop_zoom(frame, z, dx, dy)
@@ -221,7 +221,7 @@ def render(t):
             comp.alpha_composite(im2, (int(l["x"] - im2.width / 2), int(l["y"] - im2.height / 2)))
             if age < .17:                      # soco de câmera em cada elemento que entra
                 z += .032 * (1 - age / .17)
-        sh = 11 * max(0.0, 1 - lt / .22) ** 2
+        sh = 15 * max(0.0, 1 - lt / .24) ** 2
         dx = (sh * math.sin(lt * 96)) / W
         dy = -(1 - 1 / z) * .46 + (sh * math.cos(lt * 71)) / H
         out = C.crop_zoom(comp, z, dx, dy)
@@ -229,8 +229,8 @@ def render(t):
     # flash + aberração cromática no corte
     for c in CUTS:
         k = t - c
-        if 0 <= k < .07:
-            al = int(84 * (1 - k / .07))
+        if 0 <= k < .09:
+            al = int(96 * (1 - k / .09))
             out = Image.alpha_composite(out, Image.new("RGBA", (W, H), (255, 252, 244, al)))
             off = max(1, int(7 * (1 - k / .07)))
             r, g, b = out.convert("RGB").split()

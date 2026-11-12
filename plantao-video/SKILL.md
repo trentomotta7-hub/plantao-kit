@@ -1,11 +1,28 @@
 ---
 name: plantao-video
-description: Produz episódios verticais 9:16 em PT-BR de notícia criminal e crime organizado (break news) na estética colagem de jornal + mapa animado do Brasil, montados para retenção e monetização no TikTok. Use para criar vídeo de notícia policial, série MAPA SUJO, episódios sobre facções/PCC/Comando Vermelho, mapa explicativo animado com dados de estados, vídeo com cara de jornal colado, narração TTS com beat sheet, corte curto de 30s para Reels/Shorts.
+description: Produz episódios verticais 9:16 em PT-BR de notícia criminal e crime organizado (break news) na estética colagem de jornal + mapa animado do Brasil, montados para retenção e monetização no TikTok. Use para criar vídeo de notícia policial, série de episódios sobre facções/PCC/Comando Vermelho, mapa explicativo animado com dados de estados, vídeo com cara de jornal colado, narração TTS com beat sheet, corte curto de 30s para Reels/Shorts.
 ---
 
-# MAPA SUJO — fábrica de episódios
+# O PLANTÃO — fábrica de episódios
 
 Vídeo vertical de 62–75s, 1080×1920, 30fps, em 10 blocos que alternam **página de jornal colada** e **mapa animado do Brasil**. O corte é a batida: flash + drop de áudio em cada virada. Custo padrão: **1 crédito por episódio** (só a narração; o resto é render determinístico).
+
+## Edição, não capítulo
+A série **não numera episódios** (MAPA 01, 02…). Notícia não é novela: numeração cria a sensação de "perdi os anteriores" em quem chega frio, e 80–90% do TikTok chega frio.
+- O selo é de **edição**: `EDIÇÃO 007` na linha de data do jornal e no canto dos mapas. Coleção sem prometer continuação.
+- Numere só quando a história **realmente** continua, e no título: `O DINHEIRO DO PCC · PARTE 2`. No máximo 3 partes, e o vídeo 2 re-explica o essencial nos 2 primeiros segundos.
+- Proporção: 3 notícias soltas para cada continuação.
+- No TikTok, a série mora na **playlist** do app, não no título.
+
+Variáveis de edição (defina antes de renderizar):
+| variável | efeito |
+|---|---|
+| `PLANTAO_NOME` | cabeçalho do jornal (padrão `MAPA SUJO`, encolhe sozinho se for longo) |
+| `PLANTAO_EDICAO` | número da edição (padrão `1` → `EDIÇÃO 001`) |
+| `PLANTAO_DATA` | data da linha de rosto (padrão a data do ep. 01) |
+
+## Gancho: os 2 primeiros segundos
+Manchete entra em **0.0** e a foto em **0.25** — a página nunca aparece vazia no primeiro frame. Carimbo em 1.9, emoji em 3.4. Só o `marker` (a frase que dói) fica ancorado no áudio.
 
 ## Regra de ouro
 O Creator Rewards do TikTok exige vídeo com **mais de 1 minuto**. O mestre é sempre 62–75s. Corte de 30s é peça de alcance, não de monetização.
