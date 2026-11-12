@@ -65,7 +65,6 @@ def layers(i):
         sub = PL(TB(["que a AGU quer confiscar", "AGORA"], 38, INK, "Oswald.ttf", 600), 20, 12)
         sub = st(sub, 1.4)
         out = [L(ph, 540, 690, .2, 1.0),
-               L(big, 520, 1200, 1.5, 2.0),
                L(sub, 545, 1470, 3.3, 1.0),
                L(st(C.stamp("CONFISCO", 58, RED, -13), 0), 800, 1010, 4.5),
                L(C.emoji_sticker("1f4b0", 168), 210, 960, 5.2, 6)]
@@ -207,5 +206,28 @@ def m8(frame, lt):                  # resposta: mapa cheio apagado + as duas fra
         frame.alpha_composite(st(t2, 1.4), (40, 1470))
     return frame
 
+
+def _counter(comp, lt):             # contador: o valor sobe de 0 até 190,3
+    if lt < 1.1:
+        return
+    v = 190.3 * C.ease(min(1, (lt - 1.1) / 1.35))
+    big = st(PL(TB([f"R$ {v:.1f}", "MILHÕES"], 118, INK, "Anton.ttf"), 30, 14, YEL), -3.2)
+    comp.alpha_composite(big, (520 - big.width // 2, 1200 - big.height // 2))
+
+
+PER_FRAME = {2: _counter}
+
+CAPTIONS = {
+    0: ["os EUA botaram o PCC e o CV", "na lista de terroristas", "e na esquina não mudou nada"],
+    1: ["eles não atacam onde você pensa"],
+    2: ["190 milhões que a AGU quer confiscar"],
+    3: ["26 estados de 27"],
+    4: ["começou no presídio", "PCC 93, CV 79"],
+    5: ["1 em cada 3 metros do Rio"],
+    6: ["banco congela", "doação vira crime", "passagem some", "extradição fácil"],
+    7: ["o fuzil vem da fronteira"],
+    8: ["não é a esquina", "é o dinheiro que paga a esquina"],
+    9: ["pega o dinheiro ou a manchete?"],
+}
 
 MAP_BLOCKS = {1: m1, 3: m3, 7: m7, 8: m8}

@@ -183,6 +183,16 @@ def beat_at(t):
     return len(T0) - 1
 
 
+_CAP = {}
+
+
+def _cap(i, n, words):
+    key = (i, n)
+    if key not in _CAP:
+        _CAP[key] = PL(TB([" ".join(words[:n])], 44, WHT, "Oswald.ttf", 700, maxw=930), 22, 12, INK)
+    return _CAP[key]
+
+
 def render(t):
     i = beat_at(t)
     lt = t - T0[i]
@@ -193,14 +203,14 @@ def render(t):
     if i in MOD.MAP_BLOCKS:
         frame = M.BG.copy()
         frame = MOD.MAP_BLOCKS[i](frame, lt)
-        z = 1.02 + .055 * p
+        z = 1.02 + .055 * p + .005 * math.sin(t * 1.9)
         sh = 13 * max(0.0, 1 - lt / .26) ** 2
         dx = (sh * math.sin(lt * 90)) / W
         dy = (sh * math.cos(lt * 67)) / H
         out = C.crop_zoom(frame, z, dx, dy)
     else:
         comp = MOD.base(i)
-        z = 1.035 + .085 * p
+        z = 1.035 + .085 * p + .006 * math.sin(t * 2.1)
         for l in MOD.layers(i):
             if lt < l["pop"]:
                 continue
@@ -221,6 +231,9 @@ def render(t):
             comp.alpha_composite(im2, (int(l["x"] - im2.width / 2), int(l["y"] - im2.height / 2)))
             if age < .17:                      # soco de câmera em cada elemento que entra
                 z += .032 * (1 - age / .17)
+        pf = getattr(MOD, "PER_FRAME", {}).get(i)
+        if pf:
+            pf(comp, lt)
         sh = 15 * max(0.0, 1 - lt / .24) ** 2
         dx = (sh * math.sin(lt * 96)) / W
         dy = -(1 - 1 / z) * .46 + (sh * math.cos(lt * 71)) / H
@@ -242,6 +255,14 @@ def render(t):
     arr[..., :3] += np.random.default_rng(int(t * 997) % 9999).normal(
         0, 3.0, (H, W, 1)).astype(np.int16)
     out = Image.fromarray(np.clip(arr, 0, 255).astype("uint8"))
+
+    # legenda queimada (palavra por palavra)
+    words = getattr(MOD, "CAPTIONS", {}).get(i)
+    if words:
+        n = 1 + int(max(0.0, lt - .12) / .26)
+        n = max(1, min(n, len(words)))
+        cap = _cap(i, n, words)
+        out.alpha_composite(cap, ((W - cap.width) // 2, 1586 - cap.height // 2))
 
     # ticker
     tick = C.ticker_strip(accent)
