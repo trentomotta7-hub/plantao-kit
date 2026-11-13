@@ -210,11 +210,14 @@ def render(t):
         out = C.crop_zoom(frame, z, dx, dy)
     else:
         comp = MOD.base(i)
+        ref = getattr(MOD, "REF", {}).get(i)
+        kr = (dur / ref) if ref else 1.0        # pops foram escritos p/ outra duração
+        lt_c = lt / kr
         z = 1.035 + .085 * p + .006 * math.sin(t * 2.1)
         for l in MOD.layers(i):
-            if lt < l["pop"]:
+            if lt_c < l["pop"]:
                 continue
-            age = lt - l["pop"]
+            age = lt - l["pop"] * kr
             if age < .13:
                 s = 1.42 - .42 * C.ease(age / .13)
             else:
@@ -233,7 +236,7 @@ def render(t):
                 z += .032 * (1 - age / .17)
         pf = getattr(MOD, "PER_FRAME", {}).get(i)
         if pf:
-            pf(comp, lt)
+            pf(comp, lt_c)
         sh = 15 * max(0.0, 1 - lt / .24) ** 2
         dx = (sh * math.sin(lt * 96)) / W
         dy = -(1 - 1 / z) * .46 + (sh * math.cos(lt * 71)) / H

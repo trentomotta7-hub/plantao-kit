@@ -215,6 +215,10 @@ def _counter(comp, lt):             # contador: o valor sobe de 0 até 190,3
     comp.alpha_composite(big, (520 - big.width // 2, 1200 - big.height // 2))
 
 
+# duração de cada bloco na gravação ORIGINAL desta versão do conteúdo.
+# Se você regravar a narração, o motor reescala estes tempos sozinho.
+REF = {0: 9.601, 2: 6.884, 4: 8.021, 5: 4.535, 6: 8.630, 9: 5.636}
+
 PER_FRAME = {2: _counter}
 
 CAPTIONS = {
