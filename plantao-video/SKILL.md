@@ -41,13 +41,12 @@ Escrever o texto falado em `roteiro.txt`, **uma linha por bloco**. A arquitetura
 ### 3. Narração (1 crédito)
 Chamar `generate_speech` (voice `pt-br-techagent-4`, `pt-BR`, um turn por bloco, style `urgent, clear, conversational`; o último bloco pode ir `slower, emphatic`). Salvar como `vo_raw.wav`. O TTS sai rápido demais — **nunca use cru**.
 
-### 4. Beat sheet (2 min)
+### 4. Beat sheet — alinhamento obrigatório por palavra
+Não inferir fronteiras só por silêncio: pausas internas podem ser maiores que as pausas entre blocos. Depois de montar o áudio final, transcrever com timestamps de palavra:
 ```bash
-python3 <skill>/scripts/dips.py --wav vo_raw.wav --textos roteiro.txt      # fronteiras
-python3 <skill>/scripts/edit_vo.py --wav vo_raw.wav --bounds 7.70,11.74,... \
-        --gaps 0.75,0.45,0.70,0.40,0.55,0.65,0.40,0.75,0.75                  # vo_edit.wav + beats.json
+manus-speech-to-text vo_edit.wav --granularity word
 ```
-`--gaps` são os respiros: maiores (0.7–0.75) nas viradas de história, menores (0.4) entre blocos irmãos. O corte de imagem cai 0.10s antes da voz.
+Mapear o primeiro termo falado de cada bloco para o timestamp exato e escrever `beats.json`. O primeiro bloco começa em 0.0; cada próximo bloco começa até 0.10s antes do início falado (cut), sem adiantar visuais por segundos. Verificar os 10 âncoras na transcrição. Só usar `dips.py` como chute inicial; conferir alinhamento manualmente contra timestamps.
 
 ### 5. Conteúdo visual
 ```bash
