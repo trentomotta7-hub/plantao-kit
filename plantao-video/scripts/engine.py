@@ -256,14 +256,6 @@ def render(t):
         0, 3.0, (H, W, 1)).astype(np.int16)
     out = Image.fromarray(np.clip(arr, 0, 255).astype("uint8"))
 
-    # legenda queimada (palavra por palavra)
-    words = getattr(MOD, "CAPTIONS", {}).get(i)
-    if words:
-        n = 1 + int(max(0.0, lt - .12) / .26)
-        n = max(1, min(n, len(words)))
-        cap = _cap(i, n, words)
-        out.alpha_composite(cap, ((W - cap.width) // 2, 1586 - cap.height // 2))
-
     # ticker
     tick = C.ticker_strip(accent)
     x = -int((t * 235) % tick.width)

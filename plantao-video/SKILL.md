@@ -21,6 +21,9 @@ Variáveis de edição (defina antes de renderizar):
 | `PLANTAO_EDICAO` | número da edição (padrão `1` → `EDIÇÃO 001`) |
 | `PLANTAO_DATA` | data da linha de rosto (padrão a data do ep. 01) |
 
+## Legenda queimada: desligada
+Testamos legenda palavra por palavra no rodapé e o resultado não ficou bom na colagem (briga com o ticker e com o papel). O bloco de legenda foi removido do `engine.py`. Se quiser reativar, o desenho era um `PL(TB([...]))` composto antes do ticker, em y≈1586.
+
 ## Gancho: os 2 primeiros segundos
 Manchete entra em **0.0** e a foto em **0.25** — a página nunca aparece vazia no primeiro frame. Carimbo em 1.9, emoji em 3.4. Só o `marker` (a frase que dói) fica ancorado no áudio.
 
