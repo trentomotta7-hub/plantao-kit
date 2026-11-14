@@ -21,6 +21,29 @@ import numpy as np
 SR = 48000
 
 
+def trim(x, head=0.12, tail=0.10, thr=0.02, maxcut=0.8):
+    """Corta silencio do TTS nas pontas, preservando o ataque das palavras.
+
+    Sem isso o silencio que o TTS deixa no fim de cada paragrafo se soma ao
+    `--gaps` e o bloco ganha 1,5s de buraco antes do corte (aconteceu no ep. 01).
+    `head` nao pode ser curto demais: menos de 0,10s corta a consoante inicial
+    ("Dez" vira "ez minuto").
+    """
+    hop = int(0.01 * SR)
+    n = len(x) // hop
+    if n < 3:
+        return x
+    e = np.array([np.sqrt(np.mean(x[i * hop:(i + 1) * hop] ** 2)) for i in range(n)])
+    lim = max(thr, e.max() * 0.02)
+    vozes = np.where(e > lim)[0]
+    if len(vozes) == 0:
+        return x
+    a = max(0, vozes[0] * hop - int(head * SR))
+    b = min(len(x), (vozes[-1] + 1) * hop + int(tail * SR))
+    a = max(a, (vozes[0] * hop) - int(maxcut * SR))
+    return x[a:b]
+
+
 def load(p):
     raw = subprocess.run(["ffmpeg", "-v", "error", "-i", p, "-f", "f32le", "-ac", "1",
                           "-ar", str(SR), "-"], capture_output=True, check=True).stdout
@@ -56,7 +79,7 @@ def main():
     for i in range(n_blocos):
         x0 = int(min(edges[i] * st * SR, len(x)))
         x1 = int(min(edges[i + 1] * st * SR, len(x)))
-        segs.append(x[x0:x1])
+        segs.append(trim(x[x0:x1]))
 
     out = [np.zeros(int(a.lead * SR))]
     starts, t = [], a.lead

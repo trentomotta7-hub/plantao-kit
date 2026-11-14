@@ -396,6 +396,11 @@ def tilt(im, ang):
 TICKER_TXT = ("  URGENTE  •  PCC E CV NA LISTA DE TERRORISTAS  •  R$ 190,3 MILHÕES NA MIRA"
               "  •  CV EM 26 DE 27 ESTADOS  •  1/3 DO RIO É ÁREA DE FACÇÃO"
               "  •  A BARRICADA CONTINUA  •  ")
+# Cada episódio define o próprio ticker (PLANTAO_TICKER); o texto acima é só o
+# padrão do ep. 01. Sem isso o vídeo novo herda a manchete do anterior.
+TICKER_TXT = _os.environ.get("PLANTAO_TICKER") or TICKER_TXT
+if not TICKER_TXT.endswith("  •  "):
+    TICKER_TXT = TICKER_TXT.strip() + "  •  "
 _tick = {}
 
 

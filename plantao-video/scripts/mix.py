@@ -9,6 +9,7 @@ Saída: mix_raw.wav e mix_ln.wav (normalizado a -14 LUFS, padrão de plataforma)
 """
 import argparse
 import json
+import re
 import subprocess
 
 import numpy as np
@@ -132,8 +133,19 @@ def main():
     pcm = (np.clip(mix, -1, 1) * 32767).astype("<i2")
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "s16le", "-ar", str(SR), "-ac", "2",
                     "-i", "-", "-c:a", "pcm_s16le", "mix_raw.wav"], input=pcm.tobytes(), check=True)
+    # loudnorm em DUAS passagens: a primeira mede, a segunda aplica ganho LINEAR.
+    # Uma passagem so (dinamica) entrega ~3 LU abaixo do alvo e estoura o teto de pico.
+    alvo = "I=-14:TP=-1.5:LRA=9"
+    m = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", "mix_raw.wav", "-af",
+                        f"loudnorm={alvo}:print_format=json", "-f", "null", "-"],
+                       capture_output=True, text=True).stderr
+    med = json.loads(re.search(r"\{[^{}]*input_i[^{}]*\}", m, re.S).group(0))
+    segunda = (f"loudnorm={alvo}:measured_I={med['input_i']}:measured_LRA={med['input_lra']}:"
+               f"measured_TP={med['input_tp']}:measured_thresh={med['input_thresh']}:"
+               f"offset={med['target_offset']}:linear=true")
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", "mix_raw.wav", "-af",
-                    "loudnorm=I=-14:TP=-1.0:LRA=9", "-c:a", "pcm_s16le", "mix_ln.wav"], check=True)
+                    f"{segunda},aresample={SR}", "-c:a", "pcm_s16le", "mix_ln.wav"], check=True)
+    print("loudnorm 2 passagens: medido %s LUFS -> alvo -14 LUFS" % med["input_i"])
     print("ok", mix.shape)
 
 

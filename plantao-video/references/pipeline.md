@@ -18,19 +18,27 @@ O áudio sai ~52s para 10 blocos (rápido demais) e **sem silêncio entre os par
 
 ## 2. Fronteiras
 ```bash
+python3 <skill>/scripts/edit_vo.py --wav vo_raw.wav --bounds 7.70,11.74,... \
+   --gaps 0.75,0.45,0.70,0.40,0.55,0.65,0.40,0.75,0.75 --tempo 0.87
+```
+`--bounds` vem do `dips.py` **só como chute** (vale de energia perto da posição esperada, proporcional ao tamanho do bloco):
+```bash
 python3 <skill>/scripts/dips.py --wav vo_raw.wav --textos roteiro.txt
 # 52.08 s · 10 blocos
 # 7.70,11.74,17.12,20.29,26.79,30.17,37.33,42.01,47.17
 ```
-Funciona por vale de energia perto da posição esperada (proporcional ao tamanho do bloco). Se um valor cair no meio de uma frase, ajuste à mão ±0,5s.
+O `edit_vo.py` desacelera (atempo 0.87), abre os respiros e emite um `beats.json` provisório. Esse arquivo **é substituído no passo 3** pela versão ancorada em palavra.
 
-## 3. Narração final + beat sheet
+## 3. Beat sheet por palavra (fonte de verdade)
 ```bash
-python3 <skill>/scripts/edit_vo.py --wav vo_raw.wav --bounds 7.70,11.74,... \
-   --gaps 0.75,0.45,0.70,0.40,0.55,0.65,0.40,0.75,0.75 --tempo 0.87
-# duração final 65.40 s (10 blocos) → grava vo_edit.wav e beats.json
+manus-speech-to-text vo_edit.wav --granularity word > vo.json
+python3 <skill>/scripts/timing.py --stt vo.json --textos roteiro.txt --wav vo_edit.wav
 ```
-`beats.json` = `{dur, starts[], cuts[]}`. `cuts[i] = starts[i] - 0.10` (imagem entra um fio antes da voz). **Todo o resto do pipeline lê esse arquivo** — é a única fonte de verdade de tempo.
+`beats.json` = `{dur, starts[], cuts[], words[][]}`. `cuts[i] = starts[i] - 0.10` (a imagem entra um fio antes da voz) e `words[i]` traz o tempo de cada palavra **relativo ao bloco**. Todo o resto do pipeline lê esse arquivo.
+
+O `timing.py` alinha o roteiro inteiro com a transcrição, então tolera palavra que o TTS trocou, cortou ou inseriu — e avisa quando roteiro e áudio batem menos de 85% (sinal de que o arquivo de texto não é o narrado). Sem esse passo, o `REF` de cada módulo de conteúdo volta a esticar os pops proporcionalmente, e cartela de número passa a entrar depois da fala.
+
+Verificação rápida do alinhamento: `starts` deve começar em ~0.40 e cada corte cair 0.10s antes dele. Se algum bloco cair no meio da frase anterior, a linha do roteiro não corresponde ao parágrafo do TTS.
 
 ## 4. Render
 ```bash
@@ -64,6 +72,12 @@ Conferência final:
 ffprobe -v error -show_entries format=duration -of csv=p=0 out/ep02.mp4   # 65.4
 ffmpeg -ss 3 -i out/ep02.mp4 -frames:v 1 capa.jpg                          # capa 9:16
 ```
+
+## 7. QA automatizado (antes de publicar)
+```bash
+python3 <skill>/scripts/qa.py --video out/ep02.mp4 --beats beats.json
+```
+Checa 1080×1920/30fps, duração 62–75s, lead do corte (0.06–0.20s), primeira palavra antes de 0.30s, respiro entre blocos (≤1.2s), loudness (−14 ±0.6 LUFS) e true peak (≤−1 dBTP) **medidos no MP4**, não no WAV. Falha ⇒ conserta antes de subir.
 
 ## Erros comuns
 

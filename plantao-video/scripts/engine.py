@@ -36,6 +36,46 @@ CUTS = _B["cuts"]
 DUR = _B["dur"]
 T0 = CUTS
 T1 = CUTS[1:] + [DUR]
+_WORDS = _B.get("words")
+
+
+def _nz(s):
+    import unicodedata
+    s = unicodedata.normalize("NFKD", s)
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return "".join(c for c in s.lower() if c.isalnum())
+
+
+def AT(i, phrase, before=0.08, default=None):
+    """Segundos (relativos ao bloco i) do instante em que `phrase` e falada.
+
+    Ancore cada cartela na palavra que ela ilustra:
+        L(big, 540, 700, W(2, "190"), 1.0)
+    `before` adianta o pop (a imagem entra um fio antes da palavra).
+    """
+    if not _WORDS:
+        if default is not None:
+            return default
+        raise SystemExit("beats.json sem 'words': rode timing.py antes de renderizar")
+    alvo = [_nz(t) for t in phrase.split() if _nz(t)]
+    seq = [(_nz(w["w"]), w["t"]) for w in _WORDS[i]]
+    for k in range(len(seq) - len(alvo) + 1):
+        if [s[0] for s in seq[k:k + len(alvo)]] == alvo:
+            return max(0.0, seq[k][1] - before)
+    # o transcritor grafa nome proprio de outro jeito ("Bayeux" -> "Baiê")
+    import difflib
+    for k, (w0, t0) in enumerate(seq):
+        d = difflib.SequenceMatcher(None, alvo[0], w0).ratio()
+        if d >= 0.7 and (len(alvo) == 1 or (k + 1 < len(seq) and
+                                            difflib.SequenceMatcher(
+                                                None, alvo[1], seq[k + 1][0]).ratio() >= 0.7)):
+            return max(0.0, t0 - before)
+    for s in seq:                                  # fallback: 1a palavra do trecho
+        if alvo and alvo[0] in s[0]:
+            return max(0.0, s[1] - before)
+    if default is not None:
+        return default
+    raise SystemExit(f"palavra '{phrase}' nao encontrada no bloco {i + 1}")
 
 PAPER, INK, RED, YEL, BLUE, MAG, CYA, ORG, LIM, WHT, GREY = (
     C.PAPER, C.INK, C.RED, C.YEL, C.BLUE, C.MAG, C.CYA, C.ORG, C.LIM, C.WHT, C.GREY)
@@ -211,7 +251,9 @@ def render(t):
     else:
         comp = MOD.base(i)
         ref = getattr(MOD, "REF", {}).get(i)
-        kr = (dur / ref) if ref else 1.0        # pops foram escritos p/ outra duração
+        # com palavras ancoradas (timing.py) nao existe mais retiming proporcional:
+        # o pop ja esta preso na palavra. REF fica so como compatibilidade.
+        kr = 1.0 if _WORDS else ((dur / ref) if ref else 1.0)
         lt_c = lt / kr
         z = 1.035 + .085 * p + .006 * math.sin(t * 2.1)
         for l in MOD.layers(i):
@@ -244,6 +286,8 @@ def render(t):
 
     # flash + aberração cromática no corte
     for c in CUTS:
+        if c < 0.05:                           # o primeiro frame e a capa: nunca sujar
+            continue
         k = t - c
         if 0 <= k < .09:
             al = int(96 * (1 - k / .09))

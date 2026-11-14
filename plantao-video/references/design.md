@@ -3,6 +3,8 @@
 ## Tela
 1080×1920. Margem segura: nada importante acima de y=60 (a marca d'água do TikTok cobre) nem abaixo de y=1800 (ticker ocupa 60px no pé). Texto grande entre y=280 e y=1600.
 
+Na prática, a área que sobrevive às três plataformas é ~**900×1400 centralizada** (x 90–990, y 260–1660). O TikTok ainda desenha a legenda do usuário em cima do rodapé: legenda queimada não volta, mas **texto informativo não pode morar abaixo de y=1560**.
+
 ## Paleta
 | Uso | Cor | RGB |
 |---|---|---|
@@ -60,6 +62,8 @@ Sem esses cinco, o vídeo "fica parado" mesmo com texto bom.
 
 ## Ritmo de entrada por bloco
 Bloco de 4s → 3 elementos (pops em 0,2 / 1,6 / 3,2). Bloco de 8s → 5 elementos. Nunca deixar 2,5s sem nada entrando. Os pops devem cair **na sílaba da informação**, não no meio da frase: alinhe com `beats.json` (`starts[i]` + deslocamento).
+
+**Ancore em palavra, não em segundo.** `W(i, "milhões")` devolve o instante daquela palavra dentro do bloco i, já descontando o `before` (padrão 0.08s). Se você regravar a narração, nada quebra: o pop acompanha a fala. Número na tela (contador, "26 de 27", "1/3") fecha **na palavra que o diz** — nunca depois.
 
 ## Composição que funciona
 - Papel: manchete no topo (y≈300–650), foto no meio (y≈900–1200), caneta/carimbo por cima das bordas.

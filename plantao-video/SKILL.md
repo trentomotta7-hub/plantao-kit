@@ -25,7 +25,9 @@ Variáveis de edição (defina antes de renderizar):
 Testamos legenda palavra por palavra no rodapé e o resultado não ficou bom na colagem (briga com o ticker e com o papel). O bloco de legenda foi removido do `engine.py`. Se quiser reativar, o desenho era um `PL(TB([...]))` composto antes do ticker, em y≈1586.
 
 ## Gancho: os 2 primeiros segundos
-Manchete entra em **0.0** e a foto em **0.25** — a página nunca aparece vazia no primeiro frame. Carimbo em 1.9, emoji em 3.4. Só o `marker` (a frase que dói) fica ancorado no áudio.
+Manchete entra em **0.0** e a foto em **0.25** — a página nunca aparece vazia no primeiro frame. O primeiro frame é a capa do vídeo e do perfil: **nada de flash, aberração cromática ou imagem desfocada nele** (o motor já ignora o efeito de corte em t=0). A voz começa a falar antes de **0.30s**; se o TTS abrir com silêncio, corte o silêncio inicial em vez de deixar o vídeo mudo.
+
+Carimbo e emoji entram ancorados na palavra (`W(0, "terroristas")`), nunca em tempo fixo. O `marker` (a frase que dói) entra junto com a palavra que ele repete.
 
 ## Regra de ouro
 O Creator Rewards do TikTok exige vídeo com **mais de 1 minuto**. O mestre é sempre 62–75s. Corte de 30s é peça de alcance, não de monetização.
@@ -42,17 +44,22 @@ Escrever o texto falado em `roteiro.txt`, **uma linha por bloco**. A arquitetura
 Chamar `generate_speech` (voice `pt-br-techagent-4`, `pt-BR`, um turn por bloco, style `urgent, clear, conversational`; o último bloco pode ir `slower, emphatic`). Salvar como `vo_raw.wav`. O TTS sai rápido demais — **nunca use cru**.
 
 ### 4. Beat sheet — alinhamento obrigatório por palavra
-Não inferir fronteiras só por silêncio: pausas internas podem ser maiores que as pausas entre blocos. Depois de montar o áudio final, transcrever com timestamps de palavra:
+Não inferir fronteiras por silêncio: pausa interna pode ser maior que a pausa entre blocos. Transcrever o áudio final com timestamps de palavra e deixar o `timing.py` escrever o beat sheet:
 ```bash
-manus-speech-to-text vo_edit.wav --granularity word
+manus-speech-to-text vo_edit.wav --granularity word > vo.json
+python3 <skill>/scripts/timing.py --stt vo.json --textos roteiro.txt --wav vo_edit.wav
 ```
-Mapear o primeiro termo falado de cada bloco para o timestamp exato e escrever `beats.json`. O primeiro bloco começa em 0.0; cada próximo bloco começa até 0.10s antes do início falado (cut), sem adiantar visuais por segundos. Verificar os 10 âncoras na transcrição. Só usar `dips.py` como chute inicial; conferir alinhamento manualmente contra timestamps.
+O `timing.py` alinha o roteiro inteiro com a transcrição (tolerando palavra trocada ou omitida), grava `beats.json` com `starts`, `cuts` (0.10s antes da voz) e `words` (tempo de cada palavra dentro do bloco). Se a semelhança entre roteiro e áudio ficar abaixo de 85%, ele avisa: o arquivo de texto não é o que foi narrado — corrija antes de seguir. `dips.py` fica só como chute quando não há transcrição.
 
 ### 5. Conteúdo visual
 ```bash
 cp <skill>/scripts/conteudo_ep01.py conteudo_ep02.py
 ```
-Reescrever os 10 blocos: textos, fotos, cores e pops de cada cartela. Gramática visual, coordenadas e tempos em `references/design.md`. O motor (`engine.py`) não se mexe.
+Reescrever os 10 blocos: textos, fotos, cores e pops de cada cartela. **Cada pop é ancorado na palavra que ele ilustra**, com `W(bloco, "palavra")` — nunca em segundo fixo nem em proporção da duração:
+```python
+L(big, 540, 700, W(2, "milhões"), 1.0)      # a cartela entra junto com "milhões"
+```
+Gramática visual, coordenadas e tempos em `references/design.md`. O motor (`engine.py`) não se mexe. O antigo `REF` (retiming proporcional) está desativado: quando o beat sheet tem `words`, o motor ignora `REF`.
 
 ### 6. Render, mix e encode
 ```bash
@@ -65,7 +72,13 @@ ffmpeg -y -framerate 30 -i work/frames_out/f_%05d.jpg -i mix_ln.wav \
 ```
 Detalhes, tempos medidos e erros comuns: `references/pipeline.md`.
 
-### 7. Publicação
+### 7. Controle de qualidade (obrigatório)
+```bash
+python3 <skill>/scripts/qa.py --video out/ep02.mp4 --beats beats.json
+```
+Confere formato, fps, duração, lead do corte, primeira palavra, respiro entre blocos, loudness (−14 LUFS) e true peak (−1 dBTP). Sai com código 1 se houver falha. Corrigir antes de publicar.
+
+### 8. Publicação
 Título, legenda, hashtags e horário: `references/monetizacao.md`.
 
 ## Os 10 blocos
@@ -87,10 +100,15 @@ Título, legenda, hashtags e horário: `references/monetizacao.md`.
 - 9:16, 1080×1920, 30fps. Encode `crf 25` **com** `hqdn3d` (sem isso o grão estoura o arquivo: 128 MB → 18 MB).
 - Texto com Ã/Õ: `leading >= 1.0` no `TB()`, senão o til é cortado.
 - Nenhum bloco pode ficar mais de ~2,5s sem um elemento novo entrando. Cada `pop` também dá um soco de zoom na câmera.
+- Todo `pop` é ancorado em palavra (`W()`), nunca em segundo fixo. Números na tela (contador, "26 de 27", "1/3") fecham **na palavra que os diz**, não depois.
+- Respiro entre o fim da fala de um bloco e o corte do próximo: **até 1,2s**. Acima disso é buraco, não pausa dramática.
+- O texto na tela do CTA tem que ser o que a voz pergunta. Se a voz diz "pega o dinheiro ou a manchete?", a cartela não pode dizer "o que você faria?".
+- Nada de "parte 2 amanhã" quando não existe parte 2: o selo é de edição.
 - A resposta da pergunta mestra só aparece no bloco 9. Blocos 2–8 abrem loops, não fecham.
 - Mapa sempre com dado verificável; quando for projeção, legenda "mapa ilustrativo".
 - Nunca afirmar crime a pessoa nomeada. Usar "segundo", "de acordo com", "a investigação aponta".
 - Trilha gerada (nunca música de catálogo) para não tomar claim.
+- Entregar a **−14 LUFS / −1 dBTP** medidos no MP4 final (`qa.py`), não só na etapa de mix.
 
 ## Arquivos
 ```
@@ -99,9 +117,12 @@ scripts/collage.py         helpers de papel, cartela, carimbo, caneta, emoji, ti
 scripts/mapdemo.py         projeção, máscaras por UF, câmera, cartão rasgado
 scripts/conteudo_ep01.py   CONTEÚDO do ep. 01 — molde para os próximos
 scripts/serie.py           renderiza (--test, --from, --to)
+scripts/timing.py          escreve beats.json a partir dos timestamps de PALAVRA
+scripts/qa.py              confere sincronia, respiros, formato e loudness do MP4
 scripts/dips.py            acha as fronteiras dos blocos no áudio cru
 scripts/edit_vo.py         desacelera, abre respiros, gera beats.json
 scripts/mix.py             ducking + drop nos cortes + loudnorm -14 LUFS
 scripts/bootstrap.sh       confere/baixa fontes, emojis e malha do IBGE
 assets/fonts|emoji|geo|img  Playfair, Anton, Oswald, Bebas, Marker, Twemoji, UFs, fotos
 ```
+| `PLANTAO_TICKER` | texto da faixa do rodapé (padrão: manchete do ep. 01 — sempre definir num episódio novo) |

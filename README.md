@@ -22,7 +22,9 @@ plantao-video/            a skill (copie para a pasta de skills da conta)
 │   ├── mapdemo.py        projeção, máscaras por UF, câmera, cartão rasgado
 │   ├── conteudo_ep01.py  CONTEÚDO do ep. 01 — molde dos próximos
 │   ├── serie.py          renderiza (--test, --from, --to)
-│   ├── dips.py           acha as fronteiras dos blocos no áudio
+│   ├── timing.py         escreve beats.json a partir dos timestamps de palavra
+│   ├── qa.py             confere sincronia, respiros, formato e loudness
+│   ├── dips.py           chute de fronteiras no áudio (sem transcrição)
 │   ├── edit_vo.py        desacelera, abre respiros, gera beats.json
 │   ├── mix.py            ducking + drop nos cortes + loudnorm -14 LUFS
 │   └── bootstrap.sh      confere/baixa fontes, emojis, malha do IBGE
@@ -43,17 +45,21 @@ Depois é só pedir: *"faz o episódio 2 do plantão sobre X"* — a skill dispa
 
 ```bash
 mkdir -p ep02 && cd ep02
-# 1. roteiro.txt (10 linhas) + vo_raw.wav (narração do TTS)
-python3 ~/skills/plantao-video/scripts/dips.py --wav vo_raw.wav --textos roteiro.txt
-python3 ~/skills/plantao-video/scripts/edit_vo.py --wav vo_raw.wav --bounds 7.70,... --gaps 0.75,...
-cp ~/skills/plantao-video/scripts/conteudo_ep01.py conteudo_ep02.py   # reescrever os 10 blocos
-python3 ~/skills/plantao-video/scripts/serie.py conteudo_ep02.py --test
-python3 ~/skills/plantao-video/scripts/serie.py conteudo_ep02.py
+# 1. roteiro.txt (10 linhas = o texto EXATO que a voz fala) + vo_raw.wav (TTS)
+python3 ~/skills/plantao-video/scripts/edit_vo.py --wav vo_raw.wav --bounds ... --gaps 0.75,...
+manus-speech-to-text vo_edit.wav --granularity word > vo.json
+python3 ~/skills/plantao-video/scripts/timing.py --stt vo.json --textos roteiro.txt --wav vo_edit.wav
+cp ~/skills/plantao-video/scripts/conteudo_ep01.py conteudo_ed002.py   # reescrever os 10 blocos
+python3 ~/skills/plantao-video/scripts/serie.py conteudo_ed002.py --test
+python3 ~/skills/plantao-video/scripts/serie.py conteudo_ed002.py
 python3 ~/skills/plantao-video/scripts/mix.py --bgm trilha.mp3 --big 0,3,5,7,8,9
 ffmpeg -y -framerate 30 -i work/frames_out/f_%05d.jpg -i mix_ln.wav \
   -vf "hqdn3d=1.5:1.5:5:5" -c:v libx264 -preset slow -crf 25 -pix_fmt yuv420p \
-  -c:a aac -b:a 192k -movflags +faststart -shortest out/ep02.mp4
+  -c:a aac -b:a 192k -movflags +faststart -shortest out/ed002.mp4
+python3 ~/skills/plantao-video/scripts/qa.py --video out/ed002.mp4 --beats beats.json
 ```
+
+`roteiro.txt` tem que ser **o mesmo texto** enviado ao TTS. O episódio de referência em `exemplos/ep01` foi narrado a partir de `ROTEIRO_VO.txt`, uma versão mais curta e falada de `roteiro.txt` — o `timing.py` avisa quando os dois não batem.
 
 ## Episódio de referência
 
@@ -69,3 +75,13 @@ ffmpeg -y -framerate 30 -i work/frames_out/f_%05d.jpg -i mix_ln.wav \
 ## Licença
 Código sob MIT (`LICENSE`). Fontes, Twemoji, malha do IBGE e fotos têm licenças próprias — `CREDITOS.md`.
 Repositório público: pode clonar, forkar e adaptar. Se publicar uma versão, mantenha os créditos.
+A série se chama **MAPA SUJO** e usa número de **EDIÇÃO** (`EDIÇÃO 001`, `002`…), não de episódio: notícia não é novela e numeração faz quem chega frio achar que perdeu os anteriores. O kit/motor continua com o nome interno `plantao-video`; para trocar o nome no vídeo use `PLANTAO_NOME`.
+
+## Episódios
+
+| pasta | edição | pauta | fontes |
+|---|---|---|---|
+| `exemplos/ep01` | 001 | EUA listam PCC e CV como terroristas; AGU pede R$ 190,3 mi | AGU · gov.br · BBC |
+| `episodios/ed002` | 002 | O aluguel do crime: CV cobra moradia, comércio e internet | Folha (25/10/2026) · MP-PB · SSP-BA |
+
+O `ed002` é o primeiro episódio feito com o pipeline ancorado em palavra (`timing.py` + `AT()` no conteúdo) e aprovado no `qa.py`.

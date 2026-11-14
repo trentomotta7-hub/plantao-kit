@@ -1,0 +1,849 @@
+{
+  "duration": 64.197375,
+  "language": "por",
+  "segments": [
+    {
+      "start": 0.3,
+      "end": 3.68,
+      "text": "Dez minutos pra colocar uma vida em três sacolas."
+    },
+    {
+      "start": 3.68,
+      "end": 8.9,
+      "text": "Na Paraíba, 250 famílias perderam a casa e o motivo não era droga."
+    },
+    {
+      "start": 8.9,
+      "end": 12.18,
+      "text": "Não é tráfico, é cobrança."
+    },
+    {
+      "start": 12.18,
+      "end": 13.82,
+      "text": "E olha onde isso já chegou."
+    },
+    {
+      "start": 13.82,
+      "end": 19.2,
+      "text": "Na Bahia, sete bilhões de reais em bens foram bloqueados em dez meses."
+    },
+    {
+      "start": 19.2,
+      "end": 22,
+      "text": "Não é caso isolado, olha o mapa."
+    },
+    {
+      "start": 22,
+      "end": 24.56,
+      "text": "Dezesseis operações, 13 estados."
+    },
+    {
+      "start": 24.56,
+      "end": 29.14,
+      "text": "Começou na taxa do gás, depois a internet, depois o aluguel."
+    },
+    {
+      "start": 29.14,
+      "end": 31.76,
+      "text": "A mesma lógica, cada vez maior."
+    },
+    {
+      "start": 31.76,
+      "end": 36.8,
+      "text": "Em Baiê, uma cidade só, 250 famílias."
+    },
+    {
+      "start": 36.8,
+      "end": 43.48,
+      "text": "Aluguel pra morar, taxa pra trabalhar, provedor que não opera, obra que só anda pagando."
+    },
+    {
+      "start": 43.48,
+      "end": 46.76,
+      "text": "Só que isso não é briga de rua, é receita."
+    },
+    {
+      "start": 46.76,
+      "end": 49.4,
+      "text": "E receita não cai com viatura na esquina."
+    },
+    {
+      "start": 49.4,
+      "end": 54.92,
+      "text": "Então a resposta é essa: não querem a sua casa, querem a sua renda."
+    },
+    {
+      "start": 54.92,
+      "end": 56.18,
+      "text": "Todo mês."
+    },
+    {
+      "start": 56.18,
+      "end": 60.66,
+      "text": "E enquanto a taxa existir, o aluguel do crime não atrasa."
+    },
+    {
+      "start": 60.66,
+      "end": 63.3,
+      "text": "Você paga a taxa pra trabalhar onde mora?"
+    },
+    {
+      "start": 63.3,
+      "end": 64.12,
+      "text": "Comenta"
+    }
+  ],
+  "full_text": "Dez minutos pra colocar uma vida em três sacolas. Na Paraíba, 250 famílias perderam a casa e o motivo não era droga. Não é tráfico, é cobrança. E olha onde isso já chegou. Na Bahia, sete bilhões de reais em bens foram bloqueados em dez meses. Não é caso isolado, olha o mapa. Dezesseis operações, 13 estados. Começou na taxa do gás, depois a internet, depois o aluguel. A mesma lógica, cada vez maior. Em Baiê, uma cidade só, 250 famílias. Aluguel pra morar, taxa pra trabalhar, provedor que não opera, obra que só anda pagando. Só que isso não é briga de rua, é receita. E receita não cai com viatura na esquina. Então a resposta é essa: não querem a sua casa, querem a sua renda. Todo mês. E enquanto a taxa existir, o aluguel do crime não atrasa. Você paga a taxa pra trabalhar onde mora? Comenta",
+  "words": [
+    {
+      "start": 0.3,
+      "end": 0.54,
+      "text": "Dez"
+    },
+    {
+      "start": 0.62,
+      "end": 1.08,
+      "text": "minutos"
+    },
+    {
+      "start": 1.12,
+      "end": 1.24,
+      "text": "pra"
+    },
+    {
+      "start": 1.28,
+      "end": 1.58,
+      "text": "colocar"
+    },
+    {
+      "start": 1.84,
+      "end": 2.02,
+      "text": "uma"
+    },
+    {
+      "start": 2.2,
+      "end": 2.48,
+      "text": "vida"
+    },
+    {
+      "start": 2.74,
+      "end": 2.9,
+      "text": "em"
+    },
+    {
+      "start": 2.94,
+      "end": 3.12,
+      "text": "três"
+    },
+    {
+      "start": 3.18,
+      "end": 3.68,
+      "text": "sacolas."
+    },
+    {
+      "start": 4.2,
+      "end": 4.32,
+      "text": "Na"
+    },
+    {
+      "start": 4.36,
+      "end": 4.78,
+      "text": "Paraíba,"
+    },
+    {
+      "start": 5.12,
+      "end": 6.06,
+      "text": "250"
+    },
+    {
+      "start": 6.1,
+      "end": 6.5,
+      "text": "famílias"
+    },
+    {
+      "start": 6.62,
+      "end": 7.02,
+      "text": "perderam"
+    },
+    {
+      "start": 7.06,
+      "end": 7.12,
+      "text": "a"
+    },
+    {
+      "start": 7.18,
+      "end": 7.48,
+      "text": "casa"
+    },
+    {
+      "start": 7.7,
+      "end": 7.74,
+      "text": "e"
+    },
+    {
+      "start": 7.78,
+      "end": 7.8,
+      "text": "o"
+    },
+    {
+      "start": 7.84,
+      "end": 8.119,
+      "text": "motivo"
+    },
+    {
+      "start": 8.16,
+      "end": 8.28,
+      "text": "não"
+    },
+    {
+      "start": 8.3,
+      "end": 8.44,
+      "text": "era"
+    },
+    {
+      "start": 8.54,
+      "end": 8.9,
+      "text": "droga."
+    },
+    {
+      "start": 10.24,
+      "end": 10.3,
+      "text": "Não"
+    },
+    {
+      "start": 10.36,
+      "end": 10.4,
+      "text": "é"
+    },
+    {
+      "start": 10.44,
+      "end": 10.84,
+      "text": "tráfico,"
+    },
+    {
+      "start": 11.36,
+      "end": 11.4,
+      "text": "é"
+    },
+    {
+      "start": 11.58,
+      "end": 12.18,
+      "text": "cobrança."
+    },
+    {
+      "start": 12.58,
+      "end": 12.62,
+      "text": "E"
+    },
+    {
+      "start": 12.7,
+      "end": 12.86,
+      "text": "olha"
+    },
+    {
+      "start": 12.94,
+      "end": 13.06,
+      "text": "onde"
+    },
+    {
+      "start": 13.1,
+      "end": 13.28,
+      "text": "isso"
+    },
+    {
+      "start": 13.32,
+      "end": 13.42,
+      "text": "já"
+    },
+    {
+      "start": 13.46,
+      "end": 13.82,
+      "text": "chegou."
+    },
+    {
+      "start": 14.92,
+      "end": 15.02,
+      "text": "Na"
+    },
+    {
+      "start": 15.06,
+      "end": 15.38,
+      "text": "Bahia,"
+    },
+    {
+      "start": 15.54,
+      "end": 15.78,
+      "text": "sete"
+    },
+    {
+      "start": 15.96,
+      "end": 16.46,
+      "text": "bilhões"
+    },
+    {
+      "start": 16.5,
+      "end": 16.58,
+      "text": "de"
+    },
+    {
+      "start": 16.64,
+      "end": 16.92,
+      "text": "reais"
+    },
+    {
+      "start": 16.96,
+      "end": 17.08,
+      "text": "em"
+    },
+    {
+      "start": 17.12,
+      "end": 17.32,
+      "text": "bens"
+    },
+    {
+      "start": 17.36,
+      "end": 17.52,
+      "text": "foram"
+    },
+    {
+      "start": 17.58,
+      "end": 18.12,
+      "text": "bloqueados"
+    },
+    {
+      "start": 18.46,
+      "end": 18.54,
+      "text": "em"
+    },
+    {
+      "start": 18.6,
+      "end": 18.78,
+      "text": "dez"
+    },
+    {
+      "start": 18.84,
+      "end": 19.2,
+      "text": "meses."
+    },
+    {
+      "start": 20.54,
+      "end": 20.6,
+      "text": "Não"
+    },
+    {
+      "start": 20.64,
+      "end": 20.7,
+      "text": "é"
+    },
+    {
+      "start": 20.74,
+      "end": 20.92,
+      "text": "caso"
+    },
+    {
+      "start": 20.98,
+      "end": 21.4,
+      "text": "isolado,"
+    },
+    {
+      "start": 21.46,
+      "end": 21.54,
+      "text": "olha"
+    },
+    {
+      "start": 21.56,
+      "end": 21.6,
+      "text": "o"
+    },
+    {
+      "start": 21.64,
+      "end": 22,
+      "text": "mapa."
+    },
+    {
+      "start": 22.36,
+      "end": 22.72,
+      "text": "Dezesseis"
+    },
+    {
+      "start": 22.78,
+      "end": 23.36,
+      "text": "operações,"
+    },
+    {
+      "start": 23.64,
+      "end": 23.96,
+      "text": "13"
+    },
+    {
+      "start": 24,
+      "end": 24.56,
+      "text": "estados."
+    },
+    {
+      "start": 25.64,
+      "end": 25.92,
+      "text": "Começou"
+    },
+    {
+      "start": 25.96,
+      "end": 26.06,
+      "text": "na"
+    },
+    {
+      "start": 26.12,
+      "end": 26.34,
+      "text": "taxa"
+    },
+    {
+      "start": 26.38,
+      "end": 26.44,
+      "text": "do"
+    },
+    {
+      "start": 26.5,
+      "end": 26.74,
+      "text": "gás,"
+    },
+    {
+      "start": 27,
+      "end": 27.3,
+      "text": "depois"
+    },
+    {
+      "start": 27.32,
+      "end": 27.34,
+      "text": "a"
+    },
+    {
+      "start": 27.38,
+      "end": 27.92,
+      "text": "internet,"
+    },
+    {
+      "start": 28.26,
+      "end": 28.6,
+      "text": "depois"
+    },
+    {
+      "start": 28.64,
+      "end": 28.68,
+      "text": "o"
+    },
+    {
+      "start": 28.72,
+      "end": 29.14,
+      "text": "aluguel."
+    },
+    {
+      "start": 29.6,
+      "end": 29.62,
+      "text": "A"
+    },
+    {
+      "start": 29.76,
+      "end": 30.08,
+      "text": "mesma"
+    },
+    {
+      "start": 30.14,
+      "end": 30.52,
+      "text": "lógica,"
+    },
+    {
+      "start": 30.86,
+      "end": 31.12,
+      "text": "cada"
+    },
+    {
+      "start": 31.2,
+      "end": 31.36,
+      "text": "vez"
+    },
+    {
+      "start": 31.42,
+      "end": 31.76,
+      "text": "maior."
+    },
+    {
+      "start": 33.02,
+      "end": 33.08,
+      "text": "Em"
+    },
+    {
+      "start": 33.12,
+      "end": 33.44,
+      "text": "Baiê,"
+    },
+    {
+      "start": 33.94,
+      "end": 34.06,
+      "text": "uma"
+    },
+    {
+      "start": 34.14,
+      "end": 34.44,
+      "text": "cidade"
+    },
+    {
+      "start": 34.52,
+      "end": 34.66,
+      "text": "só,"
+    },
+    {
+      "start": 35.4,
+      "end": 36.28,
+      "text": "250"
+    },
+    {
+      "start": 36.32,
+      "end": 36.8,
+      "text": "famílias."
+    },
+    {
+      "start": 38.02,
+      "end": 38.32,
+      "text": "Aluguel"
+    },
+    {
+      "start": 38.36,
+      "end": 38.46,
+      "text": "pra"
+    },
+    {
+      "start": 38.52,
+      "end": 38.78,
+      "text": "morar,"
+    },
+    {
+      "start": 39.2,
+      "end": 39.52,
+      "text": "taxa"
+    },
+    {
+      "start": 39.56,
+      "end": 39.68,
+      "text": "pra"
+    },
+    {
+      "start": 39.74,
+      "end": 40.16,
+      "text": "trabalhar,"
+    },
+    {
+      "start": 40.64,
+      "end": 41.08,
+      "text": "provedor"
+    },
+    {
+      "start": 41.12,
+      "end": 41.2,
+      "text": "que"
+    },
+    {
+      "start": 41.26,
+      "end": 41.34,
+      "text": "não"
+    },
+    {
+      "start": 41.38,
+      "end": 41.74,
+      "text": "opera,"
+    },
+    {
+      "start": 42.22,
+      "end": 42.52,
+      "text": "obra"
+    },
+    {
+      "start": 42.56,
+      "end": 42.64,
+      "text": "que"
+    },
+    {
+      "start": 42.72,
+      "end": 42.8,
+      "text": "só"
+    },
+    {
+      "start": 42.86,
+      "end": 43.02,
+      "text": "anda"
+    },
+    {
+      "start": 43.06,
+      "end": 43.48,
+      "text": "pagando."
+    },
+    {
+      "start": 44.52,
+      "end": 44.62,
+      "text": "Só"
+    },
+    {
+      "start": 44.64,
+      "end": 44.7,
+      "text": "que"
+    },
+    {
+      "start": 44.74,
+      "end": 44.88,
+      "text": "isso"
+    },
+    {
+      "start": 44.94,
+      "end": 44.98,
+      "text": "não"
+    },
+    {
+      "start": 45,
+      "end": 45.06,
+      "text": "é"
+    },
+    {
+      "start": 45.12,
+      "end": 45.32,
+      "text": "briga"
+    },
+    {
+      "start": 45.38,
+      "end": 45.46,
+      "text": "de"
+    },
+    {
+      "start": 45.52,
+      "end": 45.7,
+      "text": "rua,"
+    },
+    {
+      "start": 46.08,
+      "end": 46.12,
+      "text": "é"
+    },
+    {
+      "start": 46.16,
+      "end": 46.76,
+      "text": "receita."
+    },
+    {
+      "start": 47.18,
+      "end": 47.24,
+      "text": "E"
+    },
+    {
+      "start": 47.3,
+      "end": 47.72,
+      "text": "receita"
+    },
+    {
+      "start": 47.76,
+      "end": 47.88,
+      "text": "não"
+    },
+    {
+      "start": 47.92,
+      "end": 48.1,
+      "text": "cai"
+    },
+    {
+      "start": 48.14,
+      "end": 48.34,
+      "text": "com"
+    },
+    {
+      "start": 48.38,
+      "end": 48.86,
+      "text": "viatura"
+    },
+    {
+      "start": 48.9,
+      "end": 48.94,
+      "text": "na"
+    },
+    {
+      "start": 48.98,
+      "end": 49.4,
+      "text": "esquina."
+    },
+    {
+      "start": 51,
+      "end": 51.16,
+      "text": "Então"
+    },
+    {
+      "start": 51.18,
+      "end": 51.22,
+      "text": "a"
+    },
+    {
+      "start": 51.26,
+      "end": 51.7,
+      "text": "resposta"
+    },
+    {
+      "start": 51.76,
+      "end": 51.82,
+      "text": "é"
+    },
+    {
+      "start": 51.84,
+      "end": 52.02,
+      "text": "essa:"
+    },
+    {
+      "start": 52.46,
+      "end": 52.64,
+      "text": "não"
+    },
+    {
+      "start": 52.68,
+      "end": 52.92,
+      "text": "querem"
+    },
+    {
+      "start": 52.96,
+      "end": 53.02,
+      "text": "a"
+    },
+    {
+      "start": 53.06,
+      "end": 53.24,
+      "text": "sua"
+    },
+    {
+      "start": 53.3,
+      "end": 53.6,
+      "text": "casa,"
+    },
+    {
+      "start": 54.1,
+      "end": 54.3,
+      "text": "querem"
+    },
+    {
+      "start": 54.32,
+      "end": 54.38,
+      "text": "a"
+    },
+    {
+      "start": 54.42,
+      "end": 54.58,
+      "text": "sua"
+    },
+    {
+      "start": 54.62,
+      "end": 54.92,
+      "text": "renda."
+    },
+    {
+      "start": 55.58,
+      "end": 55.82,
+      "text": "Todo"
+    },
+    {
+      "start": 55.9,
+      "end": 56.18,
+      "text": "mês."
+    },
+    {
+      "start": 57.64,
+      "end": 57.68,
+      "text": "E"
+    },
+    {
+      "start": 57.7,
+      "end": 58.02,
+      "text": "enquanto"
+    },
+    {
+      "start": 58.06,
+      "end": 58.12,
+      "text": "a"
+    },
+    {
+      "start": 58.16,
+      "end": 58.38,
+      "text": "taxa"
+    },
+    {
+      "start": 58.44,
+      "end": 58.86,
+      "text": "existir,"
+    },
+    {
+      "start": 59.24,
+      "end": 59.28,
+      "text": "o"
+    },
+    {
+      "start": 59.34,
+      "end": 59.6,
+      "text": "aluguel"
+    },
+    {
+      "start": 59.66,
+      "end": 59.74,
+      "text": "do"
+    },
+    {
+      "start": 59.78,
+      "end": 59.98,
+      "text": "crime"
+    },
+    {
+      "start": 60.04,
+      "end": 60.14,
+      "text": "não"
+    },
+    {
+      "start": 60.18,
+      "end": 60.66,
+      "text": "atrasa."
+    },
+    {
+      "start": 61.36,
+      "end": 61.62,
+      "text": "Você"
+    },
+    {
+      "start": 61.66,
+      "end": 61.84,
+      "text": "paga"
+    },
+    {
+      "start": 61.86,
+      "end": 61.94,
+      "text": "a"
+    },
+    {
+      "start": 61.98,
+      "end": 62.3,
+      "text": "taxa"
+    },
+    {
+      "start": 62.34,
+      "end": 62.48,
+      "text": "pra"
+    },
+    {
+      "start": 62.52,
+      "end": 62.88,
+      "text": "trabalhar"
+    },
+    {
+      "start": 62.9,
+      "end": 63.04,
+      "text": "onde"
+    },
+    {
+      "start": 63.1,
+      "end": 63.3,
+      "text": "mora?"
+    },
+    {
+      "start": 63.82,
+      "end": 64.12,
+      "text": "Comenta"
+    }
+  ]
+}
