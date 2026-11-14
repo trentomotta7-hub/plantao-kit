@@ -6,36 +6,20 @@ Cada episódio novo custa **1 crédito** (só a narração). O resto é render d
 
 A série se chama **MAPA SUJO** e numera os episódios (MAPA 01, MAPA 02…). O kit/motor continua com o nome interno `plantao-video`; para trocar o nome no vídeo use `PLANTAO_NOME`.
 
+**Regra obrigatória para agentes:** leia `AGENTS.md` antes de qualquer tarefa. Para vídeo narrado, ele exige carregar `skills/plantao-video-autoreview/SKILL.md` e seguir seu gate de liberação.
+
 ## O que tem aqui
 
-```
-plantao-video/            a skill (copie para a pasta de skills da conta)
-├── SKILL.md              o fluxo de 7 passos
-├── references/
-│   ├── roteiro.md        arquitetura de 10 blocos + como apurar e escrever
-│   ├── design.md         paleta, tipografia, componentes, movimento, coordenadas
-│   ├── pipeline.md       comandos, tempos medidos, erros comuns
-│   └── monetizacao.md    regras de TikTok/Shorts/Reels e o que olhar no analytics
-├── scripts/
-│   ├── engine.py         motor de render (não editar)
-│   ├── collage.py        papel, cartela, carimbo, caneta, emoji, ticker
-│   ├── mapdemo.py        projeção, máscaras por UF, câmera, cartão rasgado
-│   ├── conteudo_ep01.py  CONTEÚDO do ep. 01 — molde dos próximos
-│   ├── serie.py          renderiza (--test, --from, --to)
-│   ├── timing.py         escreve beats.json a partir dos timestamps de palavra
-│   ├── qa.py             confere sincronia, respiros, formato e loudness
-│   ├── dips.py           chute de fronteiras no áudio (sem transcrição)
-│   ├── edit_vo.py        desacelera, abre respiros, gera beats.json
-│   ├── mix.py            ducking + drop nos cortes + loudnorm -14 LUFS
-│   └── bootstrap.sh      confere/baixa fontes, emojis, malha do IBGE
-└── assets/               fontes, Twemoji, malha IBGE (27 UFs), fotos base
-```
+- `plantao-video/`: skill de produção, referências visuais e motor/renderização.
+- `skills/plantao-video-autoreview/`: skill obrigatória, auditor técnico e checklist humano pré-entrega.
+- `assets/`: fontes, Twemoji, malha IBGE (27 UFs) e fotos base.
 
 ## Instalar em outra conta Manus
 
 ```bash
 git clone <este-repo> ~/plantao-kit
 cp -r ~/plantao-kit/plantao-video ~/skills/          # a skill fica disponível
+cp -r ~/plantao-kit/skills/plantao-video-autoreview ~/skills/  # revisão pré-entrega
 bash ~/skills/plantao-video/scripts/bootstrap.sh     # confere dependências
 ```
 
@@ -45,18 +29,20 @@ Depois é só pedir: *"faz o episódio 2 do plantão sobre X"* — a skill dispa
 
 ```bash
 mkdir -p ep02 && cd ep02
-# 1. roteiro.txt (10 linhas = o texto EXATO que a voz fala) + vo_raw.wav (TTS)
-python3 ~/skills/plantao-video/scripts/edit_vo.py --wav vo_raw.wav --bounds ... --gaps 0.75,...
-manus-speech-to-text vo_edit.wav --granularity word > vo.json
-python3 ~/skills/plantao-video/scripts/timing.py --stt vo.json --textos roteiro.txt --wav vo_edit.wav
+# 1. roteiro.txt (10 linhas = texto EXATO) + vo_raw.wav (uma tomada TTS contínua)
+cp vo_raw.wav vo_final.wav                         # preservar a voz: sem trim/atempo
+manus-speech-to-text vo_final.wav --granularity word > vo_transcription.txt
+STT=$(ls -t vo_final_transcription_*.json | head -1) # JSON word-level estruturado
+python3 ~/skills/plantao-video/scripts/timing.py --stt "$STT" --textos roteiro.txt --wav vo_final.wav --out beats.json
 cp ~/skills/plantao-video/scripts/conteudo_ep01.py conteudo_ed002.py   # reescrever os 10 blocos
 python3 ~/skills/plantao-video/scripts/serie.py conteudo_ed002.py --test
 python3 ~/skills/plantao-video/scripts/serie.py conteudo_ed002.py
-python3 ~/skills/plantao-video/scripts/mix.py --bgm trilha.mp3 --big 0,3,5,7,8,9
+python3 ~/skills/plantao-video/scripts/mix.py --vo vo_final.wav --beats beats.json --bgm trilha.mp3 --impacts 0
 ffmpeg -y -framerate 30 -i work/frames_out/f_%05d.jpg -i mix_ln.wav \
   -vf "hqdn3d=1.5:1.5:5:5" -c:v libx264 -preset slow -crf 25 -pix_fmt yuv420p \
   -c:a aac -b:a 192k -movflags +faststart -shortest out/ed002.mp4
 python3 ~/skills/plantao-video/scripts/qa.py --video out/ed002.mp4 --beats beats.json
+python3 ../skills/plantao-video-autoreview/scripts/audit_video.py --video out/ed002.mp4 --beats beats.json --script roteiro.txt --stt "$STT" --tts-turns 1 --report qa_report.md
 ```
 
 `roteiro.txt` tem que ser **o mesmo texto** enviado ao TTS. O episódio de referência em `exemplos/ep01` foi narrado a partir de `ROTEIRO_VO.txt`, uma versão mais curta e falada de `roteiro.txt` — o `timing.py` avisa quando os dois não batem.
@@ -84,4 +70,4 @@ A série se chama **MAPA SUJO** e usa número de **EDIÇÃO** (`EDIÇÃO 001`, `
 | `exemplos/ep01` | 001 | EUA listam PCC e CV como terroristas; AGU pede R$ 190,3 mi | AGU · gov.br · BBC |
 | `episodios/ed002` | 002 | O aluguel do crime: CV cobra moradia, comércio e internet | Folha (25/10/2026) · MP-PB · SSP-BA |
 
-O `ed002` é o primeiro episódio feito com o pipeline ancorado em palavra (`timing.py` + `AT()` no conteúdo) e aprovado no `qa.py`.
+O `ed002` iniciou o pipeline ancorado em palavra (`timing.py` + `AT()`), mas a versão de vídeo atual está reprovada para entrega por problemas de continuidade da narração; não use como modelo de locução final.

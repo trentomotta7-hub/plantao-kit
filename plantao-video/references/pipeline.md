@@ -9,36 +9,21 @@ mkdir -p meu_ep && cd meu_ep           # a pasta do episódio: roteiro.txt, audi
 ```
 
 ## 1. Narração
-`generate_speech` (MCP) com:
-- `voice_name: pt-br-techagent-4`, `language_code: pt-BR`
-- um turn por bloco, `style: "urgent, clear, conversational"` (bloco 9 pode ser `"slower, emphatic"`)
-- salvar em `vo_raw.wav`
+`generate_speech` (MCP) com `voice_name: pt-br-techagent-4`, `language_code: pt-BR` e **um único turn** com o texto completo, abaixo de 6000 caracteres. Use uma direção de voz curta e constante. Novo turn só para mudança intencional de locutor/interpretação. Salvar em `vo_raw.wav`.
 
-O áudio sai ~52s para 10 blocos (rápido demais) e **sem silêncio entre os parágrafos** — por isso os passos 2 e 3.
+O áudio sai como `vo_raw.wav`. Preserve o WAV gerado: aparar por limiar de volume pode cortar fricativas e consoantes, e `atempo` altera a articulação. Ajuste o texto/voz ouvindo uma nova geração, não cortando fonemas.
 
-## 2. Fronteiras
+## 2. Beat sheet por palavra (fonte de verdade)
 ```bash
-python3 <skill>/scripts/edit_vo.py --wav vo_raw.wav --bounds 7.70,11.74,... \
-   --gaps 0.75,0.45,0.70,0.40,0.55,0.65,0.40,0.75,0.75 --tempo 0.87
-```
-`--bounds` vem do `dips.py` **só como chute** (vale de energia perto da posição esperada, proporcional ao tamanho do bloco):
-```bash
-python3 <skill>/scripts/dips.py --wav vo_raw.wav --textos roteiro.txt
-# 52.08 s · 10 blocos
-# 7.70,11.74,17.12,20.29,26.79,30.17,37.33,42.01,47.17
-```
-O `edit_vo.py` desacelera (atempo 0.87), abre os respiros e emite um `beats.json` provisório. Esse arquivo **é substituído no passo 3** pela versão ancorada em palavra.
-
-## 3. Beat sheet por palavra (fonte de verdade)
-```bash
-manus-speech-to-text vo_edit.wav --granularity word > vo.json
-python3 <skill>/scripts/timing.py --stt vo.json --textos roteiro.txt --wav vo_edit.wav
+manus-speech-to-text vo_raw.wav --granularity word > vo_transcription.txt
+STT=$(ls -t vo_raw_transcription_*.json | head -1)
+python3 <skill>/scripts/timing.py --stt "$STT" --textos roteiro.txt --wav vo_raw.wav --out beats.json
 ```
 `beats.json` = `{dur, starts[], cuts[], words[][]}`. `cuts[i] = starts[i] - 0.10` (a imagem entra um fio antes da voz) e `words[i]` traz o tempo de cada palavra **relativo ao bloco**. Todo o resto do pipeline lê esse arquivo.
 
 O `timing.py` alinha o roteiro inteiro com a transcrição, então tolera palavra que o TTS trocou, cortou ou inseriu — e avisa quando roteiro e áudio batem menos de 85% (sinal de que o arquivo de texto não é o narrado). Sem esse passo, o `REF` de cada módulo de conteúdo volta a esticar os pops proporcionalmente, e cartela de número passa a entrar depois da fala.
 
-Verificação rápida do alinhamento: `starts` deve começar em ~0.40 e cada corte cair 0.10s antes dele. Se algum bloco cair no meio da frase anterior, a linha do roteiro não corresponde ao parágrafo do TTS.
+Verificação rápida: confira se a primeira palavra e as 10 aberturas de bloco correspondem à narração. As imagens entram 0.10 s antes da palavra; não se divide nem se desloca o WAV.
 
 ## 4. Render
 ```bash
@@ -50,10 +35,10 @@ python3 <skill>/scripts/serie.py conteudo_ep02.py --from 900 --to 1200   # refaz
 
 ## 5. Áudio
 ```bash
-python3 <skill>/scripts/mix.py --vo vo_edit.wav --bgm trilha.mp3 --start 50 --big 0,3,5,7,8,9
+python3 <skill>/scripts/mix.py --vo vo_raw.wav --beats beats.json --bgm trilha.mp3 --start 50 --impacts 0
 ```
 - `--start`: segundo da trilha onde começa o trecho mais forte (a trilha entra em loop com crossfade).
-- `--big`: blocos cujo corte leva impacto cheio (boom + riser). Os outros levam 62%.
+- `--impacts`: efeitos de corte são opt-in (0–1) e ficam desligados por padrão para não mascarar a primeira sílaba.
 - `--duck 0.64`: quanto a trilha abaixa sob a voz (0.64 = −9 dB). Menos que isso a voz some no celular.
 - Saída `mix_ln.wav` a −14 LUFS (padrão TikTok/YouTube).
 
@@ -77,7 +62,9 @@ ffmpeg -ss 3 -i out/ep02.mp4 -frames:v 1 capa.jpg                          # cap
 ```bash
 python3 <skill>/scripts/qa.py --video out/ep02.mp4 --beats beats.json
 ```
-Checa 1080×1920/30fps, duração 62–75s, lead do corte (0.06–0.20s), primeira palavra antes de 0.30s, respiro entre blocos (≤1.2s), loudness (−14 ±0.6 LUFS) e true peak (≤−1 dBTP) **medidos no MP4**, não no WAV. Falha ⇒ conserta antes de subir.
+Checa 1080×1920/30fps, duração 45–75s (não se deve alongar a voz com silêncio para atingir uma duração artificial), lead do corte (0.06–0.20s), primeira palavra antes de 0.30s, respiro entre blocos (≤1.2s), loudness (−14 ±0.6 LUFS) e true peak (≤−1 dBTP) **medidos no MP4**, não no WAV. Falha ⇒ conserta antes de subir.
+
+Em seguida, usar `plantao-video-autoreview`: comparar STT word-level com o roteiro, ouvir toda a voz seca e o MP4 completo, e conferir cada emenda/transição. A entrega fica bloqueada até que não haja palavras cortadas, mudança vocal não intencional ou revisão humana pendente.
 
 ## Erros comuns
 
@@ -89,8 +76,8 @@ Checa 1080×1920/30fps, duração 62–75s, lead do corte (0.06–0.20s), primei
 | Arquivo de 100 MB+ | encode sem `hqdn3d` | refazer com o filtro |
 | Voz sumindo no celular | `--duck` alto ou `--bg` alto | duck 0.6–0.7, bg 0.28–0.32 |
 | Cartelas sem contraste | cartela da mesma cor do papel | usar YEL/CYA/RED/WHT ou borda escura |
-| Fala atropelada | usou `vo_raw` | sempre `vo_edit` (atempo 0.87 + gaps) |
-| Áudio e imagem fora de fase | `beats.json` de outro episódio | regerar com `edit_vo.py` |
+| Palavra cortada | `trim`/limiar ou corte de áudio atravessou um fonema | restaurar `vo_raw.wav`; não aparar; refazer beats por palavra |
+| Áudio e imagem fora de fase | `beats.json` de outro episódio | regerar transcrição e `beats.json` com `timing.py`; manter o WAV intacto |
 
 ## Custo por episódio
 | Item | Créditos |

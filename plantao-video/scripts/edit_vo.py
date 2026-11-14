@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Transforma a narração crua do TTS em narração final + beats.json.
+"""Utilitário legado para testes; não usar no áudio de uma entrega final.
 
-O TTS sai rápido demais para vídeo (fala corrida, sem respiro). Este script:
- 1. desacelera (atempo, padrão 0.87) — melhora dicção e aumenta a duração;
- 2. insere respiros entre os blocos (padrão 0.4–0.75s, maiores nas viradas);
- 3. grava beats.json com o instante exato de cada bloco (o corte cai 0.10s antes da voz).
+Divide a forma de onda em fronteiras fornecidas e pode inserir silêncio.
+Para produção, preserve a locução como uma tomada contínua e use timing.py
+com transcrição word-level para mover apenas os elementos visuais.
 
 Uso:
     python3 edit_vo.py --wav vo_raw.wav --bounds 7.70,11.74,17.12,... \
@@ -22,26 +21,8 @@ SR = 48000
 
 
 def trim(x, head=0.12, tail=0.10, thr=0.02, maxcut=0.8):
-    """Corta silencio do TTS nas pontas, preservando o ataque das palavras.
-
-    Sem isso o silencio que o TTS deixa no fim de cada paragrafo se soma ao
-    `--gaps` e o bloco ganha 1,5s de buraco antes do corte (aconteceu no ep. 01).
-    `head` nao pode ser curto demais: menos de 0,10s corta a consoante inicial
-    ("Dez" vira "ez minuto").
-    """
-    hop = int(0.01 * SR)
-    n = len(x) // hop
-    if n < 3:
-        return x
-    e = np.array([np.sqrt(np.mean(x[i * hop:(i + 1) * hop] ** 2)) for i in range(n)])
-    lim = max(thr, e.max() * 0.02)
-    vozes = np.where(e > lim)[0]
-    if len(vozes) == 0:
-        return x
-    a = max(0, vozes[0] * hop - int(head * SR))
-    b = min(len(x), (vozes[-1] + 1) * hop + int(tail * SR))
-    a = max(a, (vozes[0] * hop) - int(maxcut * SR))
-    return x[a:b]
+    """Compatibilidade: trimming por limiar foi removido; pode cortar fonemas."""
+    return x
 
 
 def load(p):
@@ -55,7 +36,7 @@ def main():
     ap.add_argument("--wav", required=True)
     ap.add_argument("--bounds", required=True, help="fronteiras em s, separadas por vírgula")
     ap.add_argument("--gaps", default="", help="respiro depois de cada bloco (n-1 valores)")
-    ap.add_argument("--tempo", type=float, default=0.87)
+    ap.add_argument("--tempo", type=float, default=1.0)
     ap.add_argument("--lead", type=float, default=0.15)
     ap.add_argument("--out-wav", default="vo_edit.wav")
     ap.add_argument("--out-json", default="beats.json")

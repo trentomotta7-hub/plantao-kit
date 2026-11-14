@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Mixa narração + trilha com ducking e drop em cada corte.
+"""Mixa narração + trilha com ducking e loudness controlado.
 
-    python3 mix.py --vo vo_edit.wav --bgm trilha.mp3 --start 50 --big 0,3,5,7,8,9
+    python3 mix.py --vo vo_raw.wav --beats beats.json --bgm trilha.mp3 --start 50 --impacts 0
 
 --start  : segundo da trilha onde começa o trecho mais agressivo (ela entra em loop)
---big    : índices de bloco cujo corte leva impacto cheio (boom + riser); os outros levam 62%
+--impacts: nível opcional dos efeitos nos cortes; padrão 0 (desligado) para preservar a fala
 Saída: mix_raw.wav e mix_ln.wav (normalizado a -14 LUFS, padrão de plataforma).
 """
 import argparse
@@ -63,9 +63,12 @@ def main():
     ap.add_argument("--beats", default="beats.json")
     ap.add_argument("--start", type=float, default=50.0)
     ap.add_argument("--big", default="0")
+    ap.add_argument("--impacts", type=float, default=0.0,
+                    help="volume opcional de booms/cracks/risers nos cortes (0 desliga)")
     ap.add_argument("--duck", type=float, default=0.64)
     ap.add_argument("--bg", type=float, default=0.30)
     a = ap.parse_args()
+    impacts = max(0.0, min(1.0, a.impacts))
 
     B = json.load(open(a.beats))
     DUR, CUTS = B["dur"], B["cuts"]
@@ -96,7 +99,7 @@ def main():
         ov = int(0.26 * SR)
         for k in range(i0, min(n, i0 + ov)):
             gain[k] *= 1.0 + 0.22 * np.exp(-(k - i0) / ov * 5.0)
-        amp = 1.0 if c in BIG else 0.62
+        amp = impacts * (1.0 if c in BIG else 0.62)
         seg = np.arange(min(int(0.55 * SR), n - i0)) / SR
         f = 52 + 26 * np.exp(-seg * 9)
         boom[i0:i0 + len(seg)] += amp * 0.55 * np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-seg * 7.5)
@@ -114,7 +117,7 @@ def main():
         seg = np.arange(m) / SR
         f = 190 * (1500 / 190) ** (seg / (Lr / SR))
         hiss = np.diff(np.concatenate([[0.0], rng.normal(0, 1, m)]))
-        riser[i0:i0 + m] += (seg / (Lr / SR)) ** 2.2 * (
+        riser[i0:i0 + m] += impacts * (seg / (Lr / SR)) ** 2.2 * (
             0.055 * np.sin(2 * np.pi * np.cumsum(f) / SR) + 0.030 * hiss)
 
     fi = int(0.06 * SR)

@@ -50,7 +50,7 @@ def AT(i, phrase, before=0.08, default=None):
     """Segundos (relativos ao bloco i) do instante em que `phrase` e falada.
 
     Ancore cada cartela na palavra que ela ilustra:
-        L(big, 540, 700, W(2, "190"), 1.0)
+        L(big, 540, 700, AT(2, "190"), 1.0)
     `before` adianta o pop (a imagem entra um fio antes da palavra).
     """
     if not _WORDS:

@@ -1,0 +1,10 @@
+{
+  "speaker_count": 1,
+  "tts_turns_for_narrator": 1,
+  "voice_id": "",
+  "voice_processing": ["mix", "loudness normalization"],
+  "audio_cut_times_seconds": [],
+  "intentional_delivery_changes": [],
+  "source_script": "roteiro.txt",
+  "source_voice": "vo_raw.wav"
+}

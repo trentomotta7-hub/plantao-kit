@@ -41,7 +41,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--video", required=True)
     ap.add_argument("--beats", default="beats.json")
-    ap.add_argument("--min-dur", type=float, default=62.0)
+    ap.add_argument("--min-dur", type=float, default=45.0)
     ap.add_argument("--max-dur", type=float, default=75.0)
     ap.add_argument("--max-gap", type=float, default=1.20)
     a = ap.parse_args()
