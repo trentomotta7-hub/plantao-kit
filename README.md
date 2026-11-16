@@ -8,6 +8,12 @@ A série se chama **MAPA SUJO** e usa numeração de edição, não de capítulo
 
 **Regra obrigatória para agentes:** leia `AGENTS.md` antes de qualquer tarefa. Para vídeo narrado, ele exige carregar `skills/plantao-video-autoreview/SKILL.md` e seguir seu gate de liberação.
 
+## Retomada rápida — Edição 003 V6
+
+Para continuar este trabalho em uma nova sessão, clone o repositório e comece por [`episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md`](episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md). O handoff reúne as preferências do usuário, decisões editoriais, estado da V5/V6, gatilhos por palavra, limitações, direitos pendentes e próximos passos. Em seguida, leia `AGENTS.md`, `README.md` da pasta V6, `PRODUCAO_V6.md`, `storyboard_v6.md` e `review_checklist_v6.md`.
+
+O renderer reproduzível é `episodios/ed003/revisao_v6_imagens_variadas/render_episode_v6.py`. A V6 completa foi gerada e passou por 8 checagens de QA sem falhas, mas ainda está **NEEDS REVIEW**: falta escuta/revisão humana integral e confirmação dos direitos de imagem. O MP4 e os quadros são mídia local ignorada pelo Git, não fazem parte deste clone. Não publique até resolver as pendências documentadas.
+
 ## O que tem aqui
 
 - `plantao-video/`: skill de produção, referências visuais e motor/renderização.
@@ -84,7 +90,7 @@ A série se chama **MAPA SUJO** e usa número de **EDIÇÃO** (`EDIÇÃO 001`, `
 | `episodios/ed003/revisao_v3_mapa_sujo` | 003 (V3, prévia) | Mensagem atribuída a Vorcaro, relatório da PF em revisão e parecer da PGR | UOL · Agência Brasil · STF · Agência Senado |
 | `episodios/ed003/revisao_v3_cortes_visuais` | 003 (V3.2, prévia) | Mesma pauta; 41 estados visuais internos, revisão humana pendente | UOL · Agência Brasil · STF · Agência Senado |
 | `episodios/ed003/revisao_v5_visual_sincronizada` | 003 (V5, prévia) | 47 eventos visuais sincronizados à fala; revisão humana e direitos pendentes | UOL · Agência Brasil · STF · Agência Senado |
-| `episodios/ed003/revisao_v6_imagens_variadas` | 003 (V6, estudo) | Duas fotos contextuais novas; prova curta planejada, ainda não renderizada | Agência Brasil · Wikimedia Commons |
+| `episodios/ed003/revisao_v6_imagens_variadas` | 003 (V6, prévia local) | Vídeo completo com duas fotos contextuais novas; QA técnico passa, revisão humana/direitos pendentes | Agência Brasil · Wikimedia Commons |
 
 **Revisões visuais da edição 003:** V1 e V2 permanecem arquivadas e não aprovadas visualmente. `episodios/ed003/revisao_v3_mapa_sujo/` restaura o motor e a gramática visual de MAPA SUJO das edições 001/002; a V3.2 em `episodios/ed003/revisao_v3_cortes_visuais/` acrescenta cortes internos e movimento, preservando essa identidade e sem sobrescrever as versões anteriores. Ambas são prévias independentes. A revisão humana completa e a autorização para publicar a foto de Vorcaro continuam pendentes.
 
