@@ -1,43 +1,45 @@
 # Retomada de sessão — MAPA SUJO, edição 003, V6
 
-## Direção já confirmada pelo usuário
+## Direção do usuário
 
-O usuário gostou da V5 em relação às versões anteriores, mas quer deixá-la mais interessante com **mais imagens e fotos variadas**. Ele escolheu isso ao ser perguntado se queria variar fotos ou margens/enquadramentos. Portanto, priorize variedade de imagens reais/contextuais; não interprete a resposta como pedido principal por margens diferentes. Preserve a identidade MAPA SUJO: masthead grande e centralizado no topo, página de jornal, recortes, carimbos e ticker. Mantenha a sincronização visual palavra a palavra. Mapa só entra quando localização for realmente relevante — não é uma abertura padrão nem o único recurso visual.
+O usuário gostou da V5 em relação às versões anteriores, mas quer uma edição mais interessante com **mais imagens e fotos variadas**. Preserve a identidade MAPA SUJO: masthead grande e centralizado no topo, papel de jornal, recortes fotográficos, carimbos e ticker. Mantenha a sincronização visual por palavra. Mapas só devem aparecer quando geografia for realmente relevante — não como abertura padrão nem como único recurso visual. Não reescrever a narração sem pedido.
 
-O usuário rejeitou a V4 por desenhos/elementos abstratos rústicos e por retratos atrasados em relação à fala. A V5 ficou mais próxima da direção desejada, mas ainda repete retratos/cartelas em alguns pontos. A orientação desta retomada é variar as imagens, não redesenhar a marca nem reescrever o roteiro.
+A V4 foi rejeitada por desenhos/elementos abstratos rústicos e retratos atrasados. A V5 aproximou-se da direção certa; o usuário agora pediu gerar um vídeo com as atualizações V6. A V5 foi preservada e usada como master.
 
-## Estado da V5 existente
+## V6 gerada
 
-- Prévia local: `../revisao_v5_visual_sincronizada/out/ed003_v5_sincronizada.mp4`.
-- Especificações medidas: 1080×1920, 30 fps, H.264/AAC, 79,33 s, 9.651.248 bytes, aproximadamente 9,65 MB.
-- QA do kit: 8 checagens, zero falhas; o arquivo decodificou por inteiro. Lead visual de 0,10 s, primeira palavra em 0,28 s, áudio −14,1 LUFS e −1,2 dBTP.
-- Auditoria automatizada: `NEEDS REVIEW`. Não foi registrada escuta humana integral; há aviso sobre quantidade de turnos TTS não informada. O relatório também pede conferir a citação do beat 3. A foto de Daniel Vorcaro tem autorização pública/comercial não confirmada. Não tratar a versão como aprovada ou pronta para publicação.
-- A V5 não foi substituída por este estudo. O MP4, áudio e quadros de render são arquivos de mídia e não devem ser colocados no GitHub público sem pedido explícito; respeite também `AGENTS.md`.
+- **MP4 de revisão local:** `out/ed003_v6_fotos_contextuais.mp4`.
+- Duração 79,33 s; 1080×1920; 30 fps; H.264/AAC; 9.938.630 bytes (~9,94 MB); `+faststart`.
+- O encode usa CRF 25. A V5 já tinha passado pelo denoise; a V6 não reaplica denoise para evitar suavização dupla.
+- O AAC foi copiado bit a bit da V5: locução, trilha, volume e timing de áudio não foram alterados.
+- QA técnico do kit: 8 checagens, 0 falhas.  −14,1 LUFS e −1,2 dBTP; corte/voz, dimensões, fps e duração passam.
+- Decodificação integral por FFmpeg concluída; foram inspecionados quadros pós-encode nas duas janelas.
+- Auditoria pré-entrega: **NEEDS REVIEW**, saída 2. `WARN` por não informar `--tts-turns`; revisão/escuta humana continua pendente. WER 4,1% entre texto/ASR, com variações de números e nomes listadas no relatório. O relatório não aprova a versão para publicação.
+- Relatório: `out/audit_report_v6.md`; folha de contato final: `out/check/post_frames/contact_final_v6.jpg`.
 
-## Fotos novas salvas para o estudo
+## Novas fotos contextuais e sincronização
 
-As duas fotos foram copiadas para `assets/` desta pasta. Foram selecionadas por busca de imagens e checadas nas páginas-fonte. Não são imagens geradas por IA.
+1. **Fachada do Banco Master**, entra em 22,04 s, 100 ms antes da palavra “Master” (22,14 s), e cede à cartela de maio em 26,40 s. Crédito visível: `Rovena Rosa / Agência Brasil · 19/11/2025`. É foto do local, não evidência de evento investigado.
+2. **Edifício do STF**, entra em 68,58 s, 100 ms antes de “Parecer” (68,68 s), e termina no início do beat seguinte, em 72,12 s. Cartela deixa explícito `PARECER DA PGR ≠ DECISÃO DO STF`; identifica a imagem como foto de arquivo. Crédito visível: `Dasfour2022 · Wikimedia Commons · CC BY-SA 4.0 · recorte/movimento`.
 
-1. `assets/fachada_banco_master_rovena_rosa_ebc.jpg` — fachada do Banco Master na rua Elvira Ferraz, Itaim Bibi, São Paulo; foto de Rovena Rosa/Agência Brasil, 19/11/2025. A Agência Brasil e o serviço oficial do gov.br indicam banco gratuito com crédito obrigatório, com exceções para imagens de parceiros marcadas como direitos reservados. Reproduza o crédito na imagem: `Rovena Rosa/Agência Brasil`. Confirmar que a imagem específica está coberta pelas condições de uso para a publicação pretendida.
-2. `assets/stf_edificio_dasfour2022_commons.jpg` — edifício do STF, Praça dos Três Poderes, Brasília; foto de Dasfour2022, 14/08/2010. Wikimedia Commons indica CC BY-SA 4.0. Crédito: `Dasfour2022 · Wikimedia Commons · CC BY-SA 4.0`; indicar recorte/movimento e cumprir CompartilhaIgual na distribuição da adaptação.
+Fotos, fontes e detalhes de licença: `IMAGENS_E_DIREITOS.md` e `assets/`. O renderer V6 aplica cartão editorial rasgado, slide/zoom 2.5D discreto e créditos; nenhuma fotografia foi gerada por IA ou alterada semanticamente. A V5 segue preservada.
 
-A lista de URLs, os créditos completos e as condições estão em [`IMAGENS_E_DIREITOS.md`](IMAGENS_E_DIREITOS.md). Atribuições também foram adicionadas a `CREDITOS.md`.
+## Direitos e liberação
 
-## Amostra planejada — não renderizada ainda
+**Esta V6 é uma prévia de revisão, não uma versão aprovada para publicação.** Confirmar o direito de uso específico da foto da Agência Brasil. Respeitar a licença CC BY-SA 4.0 da foto do STF, incluindo atribuição, link da licença, indicação de alterações e a exigência ShareAlike na adaptação distribuída. A autorização comercial/pública do retrato de Daniel Vorcaro que já aparece na V5 também continua não confirmada. Revisão humana integral continua pendente.
 
-Criar primeiro uma prova curta e não substituir a V5:
+## Retomada e arquivos
 
-- **Beat 4 — Banco Master:** o gatilho `master` entra em 22,04 s (100 ms antes da palavra em 22,14 s). Mostrar a fachada a partir desse gatilho, com crédito visível, e manter a foto durante o trecho relevante até o marco temporal `maio` em 26,40 s. Movimento lateral/zoom muito leve sobre o cartão fotográfico rasgado, sem ligar a foto a pessoas.
-- **Beat 9 — PGR/STF:** a comparação começa em 68,58 s; o termo “Supremo” aparece em 71,00 s. Usar a foto do edifício do STF como arquivo institucional em uma janela curta dessa comparação, com crédito/licença visíveis. Não sugerir que a foto registra uma sessão ou a decisão mencionada.
-- Para uma prova rápida, montar dois trechos originais não contíguos, 21,94–31,10 s e 64,04–72,12 s, deixando explícito que é uma montagem de demonstração. Dentro de cada trecho, preservar áudio e timestamps originais. A legenda palavra a palavra continua no renderer V5.
-- Revisar a amostra em tela pequena e verificar que os créditos estão legíveis. Só então propor a integração dessas imagens no episódio inteiro. Manter a versão V5 intacta até aprovação visual.
+- Renderer reprodutível: `render_episode_v6.py`; usa o MP4 V5 como base e acrescenta dois segmentos transparentes.
+- Executar smoke test: `python3 render_episode_v6.py --smoke`.
+- Re-renderizar a V6: `python3 render_episode_v6.py --render`.
+- Base/áudio: `../revisao_v5_visual_sincronizada/out/ed003_v5_sincronizada.mp4` e `../revisao_v3_cortes_visuais/beats.json`.
+- Produção e comandos: `PRODUCAO_V6.md`; checklist humano: `review_checklist_v6.md`.
+- O MP4, PNGs de overlay e quadros de conferência são mídia local e não devem entrar no GitHub público. O código/documentação V6 podem ser versionados separadamente.
 
-Evitar as imagens genéricas existentes `cash_table.jpg`, `gavel.jpg` e `prison.jpg` nesta nova direção: podem sugerir apreensão, ato judicial ou encarceramento específicos, sem comprovação no trecho. Não usar o mapa como decoração.
+## Próximas ações
 
-## Arquivos e retomada
-
-- Renderer-base e planos V5: `../revisao_v5_visual_sincronizada/render_episode_v5.py`, `storyboard_v5.json`, `storyboard_v5.md` e `timing_audit_v5.md`.
-- Fonte dos tempos palavra a palavra: `../revisao_v3_cortes_visuais/beats.json`.
-- Regras obrigatórias do repo: ler `AGENTS.md`, `skills/plantao-video-autoreview/SKILL.md` e `plantao-video/SKILL.md` antes de editar/renderizar.
-- Esta pasta documenta o estudo V6. A prova curta ainda não foi renderizada; os dois assets de contexto e as fontes já estão salvos.
-- Não fazer uma versão completa antes da prova curta ser vista pelo usuário. Depois de eventual integração, executar QA numérico, auditoria e revisão humana integral; checar direitos de todas as fotos antes de publicar.
+1. Assistir ao MP4 inteiro em velocidade normal, com áudio, e ouvir o WAV seco conforme o checklist.
+2. Revisar em celular todos os cortes, créditos, legibilidade, datas e sincronização visual, além da citação do beat 3 contra a fonte.
+3. Confirmar quantos turnos TTS compõem a fala original e reexecutar a auditoria com `--tts-turns` correto.
+4. Confirmar direitos de todas as fotos antes de qualquer publicação. Só então decidir se esta V6 precisa de polimento adicional ou se pode ser liberada.
