@@ -64,6 +64,8 @@ python3 <skill>/scripts/qa.py --video out/ep02.mp4 --beats beats.json
 ```
 Checa 1080×1920/30fps, duração 45–75s (não se deve alongar a voz com silêncio para atingir uma duração artificial), lead do corte (0.06–0.20s), primeira palavra antes de 0.30s, respiro entre blocos (≤1.2s), loudness (−14 ±0.6 LUFS) e true peak (≤−1 dBTP) **medidos no MP4**, não no WAV. Falha ⇒ conserta antes de subir.
 
+Use o preset correspondente à versão exportada: `--preset quick` (20–45s), `--preset standard` (60–75s) ou `--preset explainer` (75–90s). Sem preset, o QA mantém a faixa legada de 45–75s; `--min-dur` e `--max-dur` continuam disponíveis para configuração manual. Não passe aprovação entre cortes.
+
 Em seguida, usar `plantao-video-autoreview`: comparar STT word-level com o roteiro, ouvir toda a voz seca e o MP4 completo, e conferir cada emenda/transição. A entrega fica bloqueada até que não haja palavras cortadas, mudança vocal não intencional ou revisão humana pendente.
 
 ## Erros comuns

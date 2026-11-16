@@ -4,3 +4,7 @@ work/
 out/
 *.wav
 *.mp3
+
+# Intermediários de vídeo em episódios (quadros individuais e caches)
+episodios/**/frames/
+episodios/**/frames_out/

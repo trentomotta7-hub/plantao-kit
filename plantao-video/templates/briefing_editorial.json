@@ -1,0 +1,53 @@
+{
+  "id": "edicao_XXX",
+  "topic": "",
+  "updated_at": "YYYY-MM-DD",
+  "format_id": "numero_que_explica",
+  "duration_preset": "standard",
+  "target_duration_seconds": 65,
+  "selected_hook_id": "hook_a",
+  "hooks": [
+    {
+      "id": "hook_a",
+      "spoken": "",
+      "on_screen": "",
+      "first_frame": "",
+      "claim_id": "claim_1"
+    },
+    {
+      "id": "hook_b",
+      "spoken": "",
+      "on_screen": "",
+      "first_frame": "",
+      "claim_id": "claim_1"
+    },
+    {
+      "id": "hook_c",
+      "spoken": "",
+      "on_screen": "",
+      "first_frame": "",
+      "claim_id": "claim_1"
+    }
+  ],
+  "source_records": [
+    {
+      "id": "src_1",
+      "publisher": "",
+      "title": "",
+      "published_at": "YYYY-MM-DD",
+      "url": "https://",
+      "source_type": "primary"
+    }
+  ],
+  "claim_ledger": [
+    {
+      "id": "claim_1",
+      "text": "",
+      "classification": "confirmed",
+      "source_ids": ["src_1"],
+      "attribution": "",
+      "visual_note": ""
+    }
+  ],
+  "human_notes": ""
+}

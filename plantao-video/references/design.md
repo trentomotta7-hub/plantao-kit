@@ -1,5 +1,19 @@
 # Gramática visual
 
+## Identidade de série (fixa)
+
+Referências obrigatórias para episódios novos: `exemplos/ep01` e, em especial, `episodios/ed002`. O conteúdo jornalístico muda; a identidade MAPA SUJO não muda sem aprovação explícita: página de jornal, cartelas de papel, recortes/fita/carimbos, painel de mapa hachurado, paleta da série e ticker. Retratos reais entram como recortes impressos com identificação, crédito e direito de uso conferido. Não substituir por estética genérica de explicador digital/Vox, foto limpa em tela cheia ou cartões de interface.
+
+## Variedade fotográfica sem perder a marca
+
+- Preserve masthead, papel, recortes, carimbos e ticker, mas não repita a mesma sequência de retratos/cartelas em todos os episódios. Escolha a imagem pelo que a locução está dizendo: retrato ao nomear alguém, fachada ao falar da instituição, ambiente real quando ele acrescentar contexto.
+- Alterne enquadramento e tratamento: plano de ambiente, recorte de retrato, foto em faixa ou cartão impresso, com movimentos 2.5D discretos. Uma imagem pode atravessar várias palavras quando continuar relevante; sincronize a entrada ao gatilho de palavra em `beats.json` e dê tempo de leitura.
+- Para cada foto, registre caminho, fonte/URL, autor, data, licença, crédito visível, alterações e palavra-gatilho. Marque fotos de arquivo quando a data for relevante. Confirme direitos para o uso pretendido antes de publicar.
+- Use fotografia real para pessoas e lugares identificados. Não gere ou anime pessoas reais, não fabrique documentos/mensagens e não posicione imagens para sugerir encontro, influência, apreensão, culpa ou prova que a fonte não estabelece.
+- Evite B-roll genérico de prisão, dinheiro apreendido, armas, vigilância ou martelo de juiz quando puder insinuar que aquilo aconteceu no caso. Se uma foto for apenas ilustrativa, identifique-a como tal e não a apresente como registro do fato.
+- Mapa não é cenário obrigatório: use-o quando um lugar, rota ou distribuição geográfica for nomeado e contribuir para a explicação. Caso contrário, prefira a imagem contextual adequada.
+- Antes do render integral, teste 2–3 trechos representativos com as novas fotos e inspecione em tela de celular. Mantenha o arquivo aprovado anterior intacto até a nova direção visual ser aceita.
+
 ## Tela
 1080×1920. Margem segura: nada importante acima de y=60 (a marca d'água do TikTok cobre) nem abaixo de y=1800 (ticker ocupa 60px no pé). Texto grande entre y=280 e y=1600.
 

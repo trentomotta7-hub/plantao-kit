@@ -4,7 +4,7 @@ Fábrica de episódios verticais (9:16) de notícia criminal em PT-BR: colagem d
 
 Cada episódio novo custa **1 crédito** (só a narração). O resto é render determinístico.
 
-A série se chama **MAPA SUJO** e numera os episódios (MAPA 01, MAPA 02…). O kit/motor continua com o nome interno `plantao-video`; para trocar o nome no vídeo use `PLANTAO_NOME`.
+A série se chama **MAPA SUJO** e usa numeração de edição, não de capítulo. O kit/motor continua com o nome interno `plantao-video`; para trocar o nome no vídeo use `PLANTAO_NOME`.
 
 **Regra obrigatória para agentes:** leia `AGENTS.md` antes de qualquer tarefa. Para vídeo narrado, ele exige carregar `skills/plantao-video-autoreview/SKILL.md` e seguir seu gate de liberação.
 
@@ -13,6 +13,10 @@ A série se chama **MAPA SUJO** e numera os episódios (MAPA 01, MAPA 02…). O 
 - `plantao-video/`: skill de produção, referências visuais e motor/renderização.
 - `skills/plantao-video-autoreview/`: skill obrigatória, auditor técnico e checklist humano pré-entrega.
 - `assets/`: fontes, Twemoji, malha IBGE (27 UFs) e fotos base.
+- `plantao-video/references/formatos.md`: seis estruturas narrativas, ganchos e testes editoriais.
+- `plantao-video/templates/briefing_editorial.json`: modelo para ganchos, alegações e fontes.
+- `plantao-video/templates/publication_metrics.csv`: registro de desempenho por publicação, plataforma e janela.
+- `plantao-video/scripts/validate_brief.py`, `check_hook.py` e `analyze_metrics.py`: verificações estruturais e métricas normalizadas.
 
 ## Instalar em outra conta Manus
 
@@ -24,6 +28,13 @@ bash ~/skills/plantao-video/scripts/bootstrap.sh     # confere dependências
 ```
 
 Depois é só pedir: *"faz o episódio 2 do plantão sobre X"* — a skill dispara sozinha.
+
+## Fluxo editorial atualizado
+
+1. Escolha uma estrutura em `plantao-video/references/formatos.md` e uma faixa de duração que a pauta sustenta: `quick` (20–45s), `standard` (60–75s) ou `explainer` (75–90s).
+2. Copie `plantao-video/templates/briefing_editorial.json`, registre três ganchos, fontes diretas e cada alegação. Rode `python3 plantao-video/scripts/validate_brief.py briefing.json`; depois confira manualmente se cada fonte sustenta o que será dito.
+3. Use `python3 plantao-video/scripts/check_hook.py --script roteiro.txt --beats beats.json` para checar bloco inicial e tempo da primeira palavra. Clareza e fidelidade do gancho continuam dependendo de revisão humana.
+4. Após publicar, preencha uma linha por plataforma e janela no CSV de métricas. Rode `python3 plantao-video/scripts/analyze_metrics.py --input publication_metrics.csv` e compare publicações de pauta e janela semelhantes.
 
 ## Rodar um episódio na mão
 
@@ -41,8 +52,8 @@ python3 ~/skills/plantao-video/scripts/mix.py --vo vo_final.wav --beats beats.js
 ffmpeg -y -framerate 30 -i work/frames_out/f_%05d.jpg -i mix_ln.wav \
   -vf "hqdn3d=1.5:1.5:5:5" -c:v libx264 -preset slow -crf 25 -pix_fmt yuv420p \
   -c:a aac -b:a 192k -movflags +faststart -shortest out/ed002.mp4
-python3 ~/skills/plantao-video/scripts/qa.py --video out/ed002.mp4 --beats beats.json
-python3 ../skills/plantao-video-autoreview/scripts/audit_video.py --video out/ed002.mp4 --beats beats.json --script roteiro.txt --stt "$STT" --tts-turns 1 --report qa_report.md
+python3 ~/skills/plantao-video/scripts/qa.py --video out/ed002.mp4 --beats beats.json --preset standard
+python3 ../skills/plantao-video-autoreview/scripts/audit_video.py --video out/ed002.mp4 --beats beats.json --script roteiro.txt --stt "$STT" --preset standard --tts-turns 1 --report qa_report.md
 ```
 
 `roteiro.txt` tem que ser **o mesmo texto** enviado ao TTS. O episódio de referência em `exemplos/ep01` foi narrado a partir de `ROTEIRO_VO.txt`, uma versão mais curta e falada de `roteiro.txt` — o `timing.py` avisa quando os dois não batem.
@@ -56,7 +67,7 @@ python3 ../skills/plantao-video-autoreview/scripts/audit_video.py --video out/ed
 - Fontes: Playfair Display, Oswald, Anton, Bebas Neue, Permanent Marker, Montserrat, Inter, Archivo Black — SIL Open Font License.
 - Emojis: Twemoji (Twitter/X) — CC-BY 4.0.
 - Malha dos estados: IBGE — domínio público.
-- Fotos em `assets/img`: geradas por IA para o projeto.
+- Fotos em `plantao-video/assets/img`: geradas por IA para o projeto; fotos reais de pauta/episódio têm atribuição e licença próprias em `CREDITOS.md` e na documentação da edição.
 
 ## Licença
 Código sob MIT (`LICENSE`). Fontes, Twemoji, malha do IBGE e fotos têm licenças próprias — `CREDITOS.md`.
@@ -69,5 +80,14 @@ A série se chama **MAPA SUJO** e usa número de **EDIÇÃO** (`EDIÇÃO 001`, `
 |---|---|---|---|
 | `exemplos/ep01` | 001 | EUA listam PCC e CV como terroristas; AGU pede R$ 190,3 mi | AGU · gov.br · BBC |
 | `episodios/ed002` | 002 | O aluguel do crime: CV cobra moradia, comércio e internet | Folha (25/10/2026) · MP-PB · SSP-BA |
+| `episodios/ed003` | 003 | Daniel Vorcaro: parecer da PGR, defesa e estilo de vida | Agência Brasil · g1 · BBC (revisão humana pendente) |
+| `episodios/ed003/revisao_v3_mapa_sujo` | 003 (V3, prévia) | Mensagem atribuída a Vorcaro, relatório da PF em revisão e parecer da PGR | UOL · Agência Brasil · STF · Agência Senado |
+| `episodios/ed003/revisao_v3_cortes_visuais` | 003 (V3.2, prévia) | Mesma pauta; 41 estados visuais internos, revisão humana pendente | UOL · Agência Brasil · STF · Agência Senado |
+| `episodios/ed003/revisao_v5_visual_sincronizada` | 003 (V5, prévia) | 47 eventos visuais sincronizados à fala; revisão humana e direitos pendentes | UOL · Agência Brasil · STF · Agência Senado |
+| `episodios/ed003/revisao_v6_imagens_variadas` | 003 (V6, estudo) | Duas fotos contextuais novas; prova curta planejada, ainda não renderizada | Agência Brasil · Wikimedia Commons |
 
-O `ed002` iniciou o pipeline ancorado em palavra (`timing.py` + `AT()`), mas a versão de vídeo atual está reprovada para entrega por problemas de continuidade da narração; não use como modelo de locução final.
+**Revisões visuais da edição 003:** V1 e V2 permanecem arquivadas e não aprovadas visualmente. `episodios/ed003/revisao_v3_mapa_sujo/` restaura o motor e a gramática visual de MAPA SUJO das edições 001/002; a V3.2 em `episodios/ed003/revisao_v3_cortes_visuais/` acrescenta cortes internos e movimento, preservando essa identidade e sem sobrescrever as versões anteriores. Ambas são prévias independentes. A revisão humana completa e a autorização para publicar a foto de Vorcaro continuam pendentes.
+
+O `ed002` iniciou o pipeline ancorado em palavra (`timing.py` + `AT()`), mas a versão de vídeo atual está reprovada para entrega por problemas de continuidade da narração; não use como modelo de locução final. Cada corte de duração é uma versão independente e precisa de QA e revisão humana próprios.
+
+Para retomar a revisão de variedade fotográfica da edição 003 em outra sessão, comece por `episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md`. O handoff registra as preferências do usuário, o estado da V5, os novos ativos e os próximos passos sem incluir quadros de renderização.

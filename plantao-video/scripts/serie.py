@@ -16,7 +16,9 @@ conteudo = next((a for a in args if a.endswith(".py")), "conteudo_ep01.py")
 E.load(conteudo)
 
 if "--test" in args:
-    for t in (0.2, 3.0, 6.0, 10.5, 16.0, 23.0, 27.5, 35.0, 40.0, 45.0, 49.0, 55.0, 62.0):
+    # Amostra toda a duração, inclusive o último bloco de vídeos explicadores.
+    fractions = (0.005, 0.04, 0.09, 0.16, 0.24, 0.33, 0.43, 0.54, 0.65, 0.76, 0.87, 0.95, 0.995)
+    for t in sorted({round(max(0.0, min(E.DUR - 0.01, E.DUR * f)), 2) for f in fractions}):
         E.render(t).save(f"{E.OUT}/t_{t:05.1f}.jpg", quality=90)
         print("ok", t, flush=True)
     raise SystemExit(0)

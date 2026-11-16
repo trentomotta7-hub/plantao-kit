@@ -115,11 +115,24 @@ def main() -> int:
     ap.add_argument("--report", type=Path, default=Path("qa_report.md"))
     ap.add_argument("--human-checklist", type=Path,
                     help="checklist preenchido; APROVADO só vale se todos os itens humanos estiverem marcados")
-    ap.add_argument("--min-duration", type=float, default=45.0)
-    ap.add_argument("--max-duration", type=float, default=75.0)
+    ap.add_argument("--preset", choices=("legacy", "quick", "standard", "explainer"), default="legacy",
+                    help="faixa editorial: quick 20–45s, standard 60–75s, explainer 75–90s; legacy 45–75s")
+    ap.add_argument("--min-duration", type=float, default=None, help="sobrescreve o mínimo do preset")
+    ap.add_argument("--max-duration", type=float, default=None, help="sobrescreve o máximo do preset")
     ap.add_argument("--max-gap", type=float, default=1.2)
     ap.add_argument("--max-wer", type=float, default=0.12)
     a = ap.parse_args()
+    ranges = {
+        "legacy": (45.0, 75.0),
+        "quick": (20.0, 45.0),
+        "standard": (60.0, 75.0),
+        "explainer": (75.0, 90.0),
+    }
+    preset_min, preset_max = ranges[a.preset]
+    min_duration = a.min_duration if a.min_duration is not None else preset_min
+    max_duration = a.max_duration if a.max_duration is not None else preset_max
+    if min_duration > max_duration:
+        ap.error("--min-duration não pode ser maior que --max-duration")
     rows: list[tuple[str, str, str]] = []
     manual = [
         "Ouvir o WAV seco inteiro antes da música.",
@@ -159,8 +172,8 @@ def main() -> int:
         except (ValueError, ZeroDivisionError):
             fps = 0.0
         add(rows, "PASS" if abs(fps - 30) < 0.02 else "FAIL", "fps", f"{fps:.3f}")
-    add(rows, "PASS" if a.min_duration <= duration <= a.max_duration else "FAIL",
-        "duração", f"{duration:.2f}s (faixa configurada {a.min_duration:.0f}–{a.max_duration:.0f}s)")
+    add(rows, "PASS" if min_duration <= duration <= max_duration else "FAIL",
+        "duração", f"{duration:.2f}s (preset {a.preset}: {min_duration:.0f}–{max_duration:.0f}s)")
 
     if audio:
         integrated, peak = loudness(a.video)

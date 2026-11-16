@@ -30,11 +30,12 @@ python3 <skill>/scripts/audit_video.py \
   --beats beats.json \
   --script roteiro.txt \
   --stt vo_transcription.json \
+  --preset explainer \
   --tts-turns 1 \
   --report qa_report.md
 ```
 
-O script confere streams, formato/fps, duração, loudness/true peak, duração MP4 vs. beats, lead visual antes da voz, primeira palavra, respiros e alinhamento aproximado entre roteiro e transcrição. Opcionalmente, `--audio-cuts 8.2,15.9` sinaliza qualquer corte de áudio dentro de palavra. Uma aprovação técnica **não substitui a escuta**: timbre, entonação, truncamento perceptivo e inteligibilidade em celular exigem revisão humana.
+`--preset` aceita `quick` (20–45 s), `standard` (60–75 s), `explainer` (75–90 s) e `legacy` (45–75 s, padrão compatível). `--min-duration` e `--max-duration` podem substituir os limites de um preset. O script confere streams, formato/fps, duração, loudness/true peak, duração MP4 vs. beats, lead visual antes da voz, primeira palavra, respiros e alinhamento aproximado entre roteiro e transcrição. Opcionalmente, `--audio-cuts 8.2,15.9` sinaliza qualquer corte de áudio dentro de palavra. Uma aprovação técnica **não substitui a escuta**: timbre, entonação, truncamento perceptivo e inteligibilidade em celular exigem revisão humana.
 
 Código de saída `1` = falha; `2` = há aviso ou checklist humano incompleto; `0` = nenhuma falha/aviso e checklist marcado como aprovado via `--human-checklist`. Não ignorar `1` ou `2` para publicar. Registrar a lista preenchida com `templates/review_checklist.md`.
 

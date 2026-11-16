@@ -1,0 +1,128 @@
+{
+  "id": "edicao_003_revisao_v3_mapa_sujo",
+  "topic": "Caso Master: mensagem atribuída a Vorcaro sobre voto de Alexandre de Moraes e relatório da PF em revisão",
+  "updated_at": "2026-11-15",
+  "format_id": "explicador_de_contexto",
+  "duration_preset": "explainer",
+  "target_duration_seconds": 79.32,
+  "selected_hook_id": "hook_a",
+  "hooks": [
+    {
+      "id": "hook_a",
+      "spoken": "Uma mensagem atribuída a Daniel Vorcaro dizia: ‘Moraes vai votar a favor’. Isso prova que o ministro avisou o banqueiro? Não.",
+      "on_screen": "MORAES VAI VOTAR A FAVOR? / Mensagem atribuída a Vorcaro · UOL",
+      "first_frame": "Página de jornal MAPA SUJO; manchete “MORAES VAI VOTAR A FAVOR?” já no primeiro quadro, crédito “UOL · reportagem de 13/11/2026”, foto de arquivo de Daniel Vorcaro como recorte impresso, carimbo “MENSAGEM ATRIBUÍDA” e ticker. Sem foto em tela cheia.",
+      "claim_id": "claim_message"
+    },
+    {
+      "id": "hook_b",
+      "spoken": "A cúpula da PF mandou refazer um relatório sobre ministros no caso Master. O que havia nele — e o que ainda não prova?",
+      "on_screen": "RELATÓRIO EM REVISÃO",
+      "first_frame": "Cartela de jornal “RELATÓRIO EM REVISÃO”, recortes e carimbo sobre página de papel; retrato real somente como recorte identificado e creditado.",
+      "claim_id": "claim_revision"
+    },
+    {
+      "id": "hook_c",
+      "spoken": "Uma frase atribuída a Vorcaro, uma votação no STF e um relatório que a PF mandou refazer: o que está confirmado?",
+      "on_screen": "MENSAGEM NÃO PROVA COMBINAÇÃO",
+      "first_frame": "Montagem de recortes de papel e diagramas/mapas da gramática MAPA SUJO, com atribuição explícita à reportagem e sem cartões de interface.",
+      "claim_id": "claim_message"
+    }
+  ],
+  "source_records": [
+    {
+      "id": "src_uol_report",
+      "publisher": "UOL",
+      "title": "Relatório rejeitado na PF cita suspeita de Moraes antecipar voto a Vorcaro",
+      "published_at": "2026-11-13",
+      "url": "https://noticias.uol.com.br/colunas/natalia-portinari/2026/11/13/relatorio-rejeitado-por-cupula-da-pf-cita-suspeita-de-moraes-antecipar-voto.htm",
+      "source_type": "news"
+    },
+    {
+      "id": "src_uol_revision",
+      "publisher": "UOL",
+      "title": "PF afasta delegados do caso Master e vai refazer relatórios que citam ministros",
+      "published_at": "2026-11-10",
+      "url": "https://noticias.uol.com.br/ultimas-noticias/redacao/2026/11/10/pf-afasta-delegados-do-caso-master-e-vai-refazer-relatorios-que-citam-ministros.ghtm",
+      "source_type": "news"
+    },
+    {
+      "id": "src_pgr",
+      "publisher": "Agência Brasil",
+      "title": "PGR envia ao Supremo parecer favorável a manter prisão de Vorcaro",
+      "published_at": "2026-11-11",
+      "url": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-11/pgr-envia-ao-supremo-parecer-favoravel-manter-prisao-de-vorcaro",
+      "source_type": "news"
+    },
+    {
+      "id": "src_daniel_photo",
+      "publisher": "Agência Brasil",
+      "title": "Defesa de Vorcaro reforça pedido de soltura no STF (foto de arquivo) — crédito Claudio Gatti/Divulgação",
+      "published_at": "2026-11-10",
+      "url": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-11/defesa-de-vorcaro-reforca-pedido-de-soltura-no-stf",
+      "source_type": "news"
+    },
+    {
+      "id": "src_moraes_photo",
+      "publisher": "STF / Flickr",
+      "title": "Sessão plenária do STF — foto Victor Piemonte/STF, domínio público",
+      "published_at": "2026-10-22",
+      "url": "https://www.flickr.com/photos/supremotribunalfederal/55606162234/",
+      "source_type": "official"
+    },
+    {
+      "id": "src_gonet_photo",
+      "publisher": "Agência Senado",
+      "title": "Recondução de Paulo Gonet à PGR — reprodução autorizada mediante citação da Agência Senado",
+      "published_at": "2025-11-12",
+      "url": "https://www12.senado.leg.br/noticias/materias/2025/11/12/por-45-votos-a-26-senado-aprova-reconducao-de-gonet",
+      "source_type": "official"
+    }
+  ],
+  "claim_ledger": [
+    {
+      "id": "claim_message",
+      "text": "UOL atribui ao relatório de investigadores mensagens de fevereiro de 2024 em que Vorcaro teria previsto como Moraes votaria; a reportagem não afirma que a mensagem, sozinha, prove que o ministro lhe antecipou o voto.",
+      "classification": "attributed",
+      "source_ids": [
+        "src_uol_report"
+      ],
+      "attribution": "Segundo reportagem do UOL publicada em 13/11/2026.",
+      "visual_note": "Trecho de mensagem sempre qualificado como atribuído/reportado; imagens reais identificadas e creditadas; nunca sugerir culpa ou combinação comprovada."
+    },
+    {
+      "id": "claim_revision",
+      "text": "A direção da PF mandou refazer relatórios sobre menções a ministros; as reportagens descrevem a crítica de que os textos extrapolaram o escopo e eram descritivos demais.",
+      "classification": "attributed",
+      "source_ids": [
+        "src_uol_revision",
+        "src_uol_report"
+      ],
+      "attribution": "Segundo as reportagens do UOL, com atribuição à direção da PF.",
+      "visual_note": "‘Em revisão’ não significa que a mensagem é falsa nem que a suspeita foi comprovada."
+    },
+    {
+      "id": "claim_pgr",
+      "text": "Paulo Gonet enviou parecer favorável à manutenção da prisão preventiva de Vorcaro; o parecer não é uma decisão do STF.",
+      "classification": "confirmed",
+      "source_ids": [
+        "src_pgr"
+      ],
+      "attribution": "Agência Brasil reporta a manifestação da PGR em 11/11/2026.",
+      "visual_note": "Mostrar Paulo Gonet apenas quando a narração o mencionar; diferenciar parecer da decisão judicial."
+    },
+    {
+      "id": "claim_photos",
+      "text": "Retratos reais de Vorcaro, Moraes e Gonet foram obtidos em páginas jornalísticas/institucionais; seus créditos devem aparecer junto à imagem.",
+      "classification": "confirmed",
+      "source_ids": [
+        "src_daniel_photo",
+        "src_moraes_photo",
+        "src_gonet_photo"
+      ],
+      "attribution": "Claudio Gatti/Divulgação via Agência Brasil; Victor Piemonte/STF via Flickr (domínio público); Agência Senado.",
+      "visual_note": "Foto de Vorcaro sem licença aberta explícita: uso apenas em rascunho até confirmar permissão para publicação."
+    }
+  ],
+  "human_notes": "Gancho imediato no primeiro quadro. Direção visual obrigatória: identidade de MAPA SUJO das edições 001/002, feita no motor original, com papel jornal, recortes, fita, carimbos, mapas/diagramas e ticker; não usar estilo Vox, cartões de interface ou fotos em tela cheia. Em nenhuma cena tratar alegação como fato provado. Confirmar direitos da foto de Claudio Gatti antes de publicação."
+}

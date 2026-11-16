@@ -43,8 +43,17 @@ def main():
     ap.add_argument("--beats", default="beats.json")
     ap.add_argument("--min-dur", type=float, default=45.0)
     ap.add_argument("--max-dur", type=float, default=75.0)
+    ap.add_argument("--preset", choices=("legacy", "quick", "standard", "explainer"), default="legacy",
+                    help="faixa editorial: quick 20–45s, standard 60–75s, explainer 75–90s")
     ap.add_argument("--max-gap", type=float, default=1.20)
     a = ap.parse_args()
+
+    if a.preset != "legacy":
+        a.min_dur, a.max_dur = {
+            "quick": (20.0, 45.0),
+            "standard": (60.0, 75.0),
+            "explainer": (75.0, 90.0),
+        }[a.preset]
 
     B = json.load(open(a.beats))
     starts, cuts, dur, words = B["starts"], B["cuts"], B["dur"], B.get("words")

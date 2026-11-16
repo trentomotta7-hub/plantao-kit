@@ -27,3 +27,9 @@ Nenhum trecho de música de catálogo entra no vídeo — é o que evita claim n
 Os textos dos episódios citam fatos públicos (listas do Tesouro dos EUA, decisões da AGU,
 dados de facção). Ao produzir um episódio novo, confira as fontes antes de publicar:
 o kit não faz verificação factual por você.
+
+## Fotos da edição 003 — estudo V6
+
+- Fachada do Banco Master, São Paulo, 19/11/2025: **Rovena Rosa/Agência Brasil**. Acesso pelo banco gratuito da Agência Brasil; crédito obrigatório. Confirmar que a imagem específica não está coberta por exceção/restrição antes da publicação. Página: https://agenciabrasil.ebc.com.br/foto/2025-11/fachada-do-banco-master-1763582161-2 ; regras do serviço: https://www.gov.br/pt-br/servicos/acessar-material-fotojornalistico-gratuitamente.
+- Edifício do STF, Brasília, 14/08/2010: **Dasfour2022**, Wikimedia Commons, **CC BY-SA 4.0**. Crédito, link da licença e indicação de alterações obrigatórios; adaptações devem ser distribuídas sob a mesma licença ou uma compatível. Licença: https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br ; página do arquivo: https://commons.wikimedia.org/wiki/File:Supreme_Federal_Court1.jpg.
+- Os créditos completos, o enquadramento editorial e o status de direitos para esta prova estão em `episodios/ed003/revisao_v6_imagens_variadas/IMAGENS_E_DIREITOS.md`.
