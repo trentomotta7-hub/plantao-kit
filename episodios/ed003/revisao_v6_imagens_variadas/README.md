@@ -1,13 +1,14 @@
 # MAPA SUJO — Edição 003 · V6 com fotos contextuais
 
-Prévia vertical V6 gerada a pedido do usuário, incorporando duas fotos contextuais reais à montagem V5. Mantém o jornal colado, o masthead centralizado, o ticker, as legendas sincronizadas por palavra e o áudio existente. Nenhum mapa decorativo foi acrescentado.
+**Status: prévia pública de revisão**, publicada no GitHub a pedido explícito do usuário em 16/11/2026. A presença pública do arquivo não significa aprovação editorial nem confirmação dos direitos das imagens.
 
-## Arquivo de revisão
+## Vídeo
 
-- MP4 local: `out/ed003_v6_fotos_contextuais.mp4`
-- H.264/AAC · 1080×1920 · 30 fps · 79,33 s · 9.938.630 bytes (~9,94 MB)
-- CRF 25, `+faststart`; o master V5 já estava denoised, por isso a V6 não reaplica denoise.
-- O AAC é copiado do V5 sem alteração, preservando narração, trilha e sincronização.
+- [Abrir/baixar o MP4 V6](out/ed003_v6_fotos_contextuais.mp4)
+- 9.938.630 bytes (~9,94 MB) · 79,33 s · 1080×1920 · 30 fps · H.264/AAC
+- SHA-256: `e08d4a5a411ecd6ef30db7ccdad65d3f090462d81ae3e23216450323bd11be63`
+- CRF 25, `+faststart`; a base V5 já tinha denoise, então não foi aplicado denoise duplo.
+- O AAC foi copiado bit a bit do V5, preservando voz, trilha, ganho e sincronização.
 
 ## O que mudou
 
@@ -24,18 +25,20 @@ Os cartões mantêm proporção próxima à das fotos, exibem os créditos e se 
 - Decodificação integral do MP4: concluída.
 - Especificações confirmadas por `ffprobe`: H.264/AAC, 1080×1920, 30 fps, 79,33 s.
 - Auditoria: **NEEDS REVIEW**; aviso de número de turnos TTS não informado e checklist humano pendente.
-- Folha pós-encode: `out/check/post_frames/contact_final_v6.jpg`.
-- Relatório: `out/audit_report_v6.md`.
+- Relatório incluído neste clone: [`audit_report_v6.md`](audit_report_v6.md).
+- A folha de contato e os frames isolados ficam locais, não versionados.
 
-## Reproduzir
+## Reproduzir/modificar
 
 ```bash
 python3 render_episode_v6.py --smoke
 python3 render_episode_v6.py --render
 ```
 
-O renderer usa o MP4 V5 local, o beat sheet e as fotos em `assets/`. Áudio original e vídeo-base não são versionados pelo GitHub público; sem esses arquivos locais, a clonagem do código sozinha não basta para re-renderizar.
+O renderer precisa do MP4-base V5 e de ativos locais de áudio/episódio que não foram incluídos neste commit. O clone atual permite ver o MP4 V6, o código e o contexto, mas **não permite re-renderizar** sem fornecer essas dependências.
 
-## Não publicar ainda
+## Direitos e revisão
 
-A V6 é apenas uma prévia. Ainda é necessária escuta humana integral e revisão visual/factual. Confirmar os direitos da foto específica da Agência Brasil e do retrato de Daniel Vorcaro. Para a imagem do STF do Wikimedia Commons, cumprir integralmente CC BY-SA 4.0 (crédito, link, alterações e ShareAlike para a adaptação distribuída). Consulte `IMAGENS_E_DIREITOS.md` e `review_checklist_v6.md`.
+O usuário autorizou expressamente armazenar este MP4 em repositório público mesmo com pendências registradas. A foto da fachada atribuída a Rovena Rosa/Agência Brasil ainda precisa de confirmação de uso para o caso concreto; a imagem do STF está sob CC BY-SA 4.0 e exige atribuição, link da licença, indicação das alterações e ShareAlike na adaptação distribuída; a autorização do retrato de Daniel Vorcaro que já aparece no vídeo não foi confirmada. Consulte [`IMAGENS_E_DIREITOS.md`](IMAGENS_E_DIREITOS.md).
+
+**Não trate o upload público no GitHub como liberação editorial/comercial do vídeo.** A revisão humana integral de áudio e imagem continua pendente. A licença MIT do código não substitui as licenças específicas das fotografias ou do material audiovisual.

@@ -38,18 +38,20 @@ python3 /home/ubuntu/plantao-kit/skills/plantao-video-autoreview/scripts/audit_v
   --preset explainer --report out/audit_report_v6.md
 ```
 
-## Resultado medido
+## Resultado medido e artefato publicado
 
 - `ffprobe`: H.264 1080×1920 a 30 fps, AAC estéreo 48 kHz; 79,333 s.
 - Tamanho: 9.938.630 bytes (cerca de 9,94 MB).
+- SHA-256: `e08d4a5a411ecd6ef30db7ccdad65d3f090462d81ae3e23216450323bd11be63`.
+- MP4 V6 final versionado no repositório público por autorização explícita do usuário; veja o link de arquivo no `README.md` desta pasta. Isso não equivale a aprovação editorial, liberação comercial ou confirmação de direitos.
 - Decode integral FFmpeg: concluído sem erro.
 - QA do kit: 8 checagens, 0 falhas. Loudness −14,1 LUFS; true peak −1,2 dBTP.
-- Auditoria automática: **NEEDS REVIEW**, código de saída 2. Passam duração, dimensões, fps, áudio, beats, lead visual 0,10 s, primeira palavra a 0,28 s, respiros e comparação aproximada roteiro/ASR (WER 4,1%).
+- Auditoria automática: **NEEDS REVIEW**, código de saída 2. Passam duração, dimensões, fps, áudio, beats, lead visual 0,10 s, primeira palavra a 0,28 s, respiros e comparação aproximada roteiro/ASR (WER 4,1%). O relatório está versionado em `audit_report_v6.md`.
 - Aviso da auditoria: `--tts-turns` não informado. O número real de turnos deve ser confirmado no registro original e a auditoria reexecutada com o número correto.
 - Checklist de escuta e revisão humana integral não foi preenchido. Uma inspeção automatizada de frames não equivale a assistir/escutar ao vídeo completo.
 
 ## Direitos
 
-A Agência Brasil identifica Rovena Rosa como autora da foto da fachada, mas é necessário reconfirmar se a foto específica está abrangida pelas condições de uso antes de qualquer publicação. A imagem do STF é CC BY-SA 4.0; cumprir crédito, link da licença, indicação de recorte/movimento e ShareAlike na adaptação distribuída. O retrato de Daniel Vorcaro que já estava na V5 permanece com autorização pública/comercial não confirmada. Ver `IMAGENS_E_DIREITOS.md` e `review_checklist_v6.md`.
+A Agência Brasil identifica Rovena Rosa como autora da foto da fachada, mas é necessário reconfirmar se a foto específica está abrangida pelas condições de uso antes de qualquer distribuição. A imagem do STF é CC BY-SA 4.0; cumprir crédito, link da licença, indicação de recorte/movimento e ShareAlike na adaptação distribuída. O retrato de Daniel Vorcaro que já estava na V5 permanece com autorização pública/comercial não confirmada. Ver `IMAGENS_E_DIREITOS.md` e `review_checklist_v6.md`.
 
-**Conclusão:** arquivo é prévia técnica de revisão; não aprovado para distribuição/publicação.
+**Conclusão editorial:** arquivo de prévia técnica, ainda não aprovado para publicação como episódio.

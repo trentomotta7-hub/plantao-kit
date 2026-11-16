@@ -10,9 +10,9 @@ A série se chama **MAPA SUJO** e usa numeração de edição, não de capítulo
 
 ## Retomada rápida — Edição 003 V6
 
-Para continuar este trabalho em uma nova sessão, clone o repositório e comece por [`episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md`](episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md). O handoff reúne as preferências do usuário, decisões editoriais, estado da V5/V6, gatilhos por palavra, limitações, direitos pendentes e próximos passos. Em seguida, leia `AGENTS.md`, `README.md` da pasta V6, `PRODUCAO_V6.md`, `storyboard_v6.md` e `review_checklist_v6.md`.
+Para continuar este trabalho em uma nova sessão, clone o repositório e comece por [`episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md`](episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md). O handoff reúne as preferências do usuário, decisões editoriais, estado da V5/V6, gatilhos por palavra, limitações, direitos pendentes e próximos passos. Em seguida, leia `AGENTS.md`, o README da pasta V6, `PRODUCAO_V6.md`, `storyboard_v6.md`, `audit_report_v6.md` e `review_checklist_v6.md`.
 
-O renderer reproduzível é `episodios/ed003/revisao_v6_imagens_variadas/render_episode_v6.py`. A V6 completa foi gerada e passou por 8 checagens de QA sem falhas, mas ainda está **NEEDS REVIEW**: falta escuta/revisão humana integral e confirmação dos direitos de imagem. O MP4 e os quadros são mídia local ignorada pelo Git, não fazem parte deste clone. Não publique até resolver as pendências documentadas.
+O renderer reproduzível é `episodios/ed003/revisao_v6_imagens_variadas/render_episode_v6.py`. O MP4 de revisão foi publicado no repositório público a pedido explícito do usuário: [assistir/baixar V6](episodios/ed003/revisao_v6_imagens_variadas/out/ed003_v6_fotos_contextuais.mp4). O vídeo passou por 8 checagens de QA sem falhas, mas continua marcado **NEEDS REVIEW**: faltam escuta/revisão humana integral e confirmação dos direitos. O upload público autorizado não é uma aprovação editorial. Frames e overlays intermediários continuam ignorados pelo Git; os ativos V5 necessários a um novo render não estão incluídos.
 
 ## O que tem aqui
 
@@ -76,8 +76,9 @@ python3 ../skills/plantao-video-autoreview/scripts/audit_video.py --video out/ed
 - Fotos em `plantao-video/assets/img`: geradas por IA para o projeto; fotos reais de pauta/episódio têm atribuição e licença próprias em `CREDITOS.md` e na documentação da edição.
 
 ## Licença
-Código sob MIT (`LICENSE`). Fontes, Twemoji, malha do IBGE e fotos têm licenças próprias — `CREDITOS.md`.
-Repositório público: pode clonar, forkar e adaptar. Se publicar uma versão, mantenha os créditos.
+
+Código sob MIT (`LICENSE`). Fontes, Twemoji, malha do IBGE e fotos têm licenças próprias — `CREDITOS.md`. A licença do código não transfere direitos sobre fotos ou sobre o vídeo V6.
+Repositório público: pode clonar, forkar e adaptar. Se publicar uma versão, mantenha os créditos e cumpra as licenças próprias dos ativos.
 A série se chama **MAPA SUJO** e usa número de **EDIÇÃO** (`EDIÇÃO 001`, `002`…), não de episódio: notícia não é novela e numeração faz quem chega frio achar que perdeu os anteriores. O kit/motor continua com o nome interno `plantao-video`; para trocar o nome no vídeo use `PLANTAO_NOME`.
 
 ## Episódios
@@ -90,10 +91,10 @@ A série se chama **MAPA SUJO** e usa número de **EDIÇÃO** (`EDIÇÃO 001`, `
 | `episodios/ed003/revisao_v3_mapa_sujo` | 003 (V3, prévia) | Mensagem atribuída a Vorcaro, relatório da PF em revisão e parecer da PGR | UOL · Agência Brasil · STF · Agência Senado |
 | `episodios/ed003/revisao_v3_cortes_visuais` | 003 (V3.2, prévia) | Mesma pauta; 41 estados visuais internos, revisão humana pendente | UOL · Agência Brasil · STF · Agência Senado |
 | `episodios/ed003/revisao_v5_visual_sincronizada` | 003 (V5, prévia) | 47 eventos visuais sincronizados à fala; revisão humana e direitos pendentes | UOL · Agência Brasil · STF · Agência Senado |
-| `episodios/ed003/revisao_v6_imagens_variadas` | 003 (V6, prévia local) | Vídeo completo com duas fotos contextuais novas; QA técnico passa, revisão humana/direitos pendentes | Agência Brasil · Wikimedia Commons |
+| `episodios/ed003/revisao_v6_imagens_variadas` | 003 (V6, prévia pública de revisão) | Vídeo completo com duas fotos contextuais; revisão humana/direitos pendentes | Agência Brasil · Wikimedia Commons |
 
 **Revisões visuais da edição 003:** V1 e V2 permanecem arquivadas e não aprovadas visualmente. `episodios/ed003/revisao_v3_mapa_sujo/` restaura o motor e a gramática visual de MAPA SUJO das edições 001/002; a V3.2 em `episodios/ed003/revisao_v3_cortes_visuais/` acrescenta cortes internos e movimento, preservando essa identidade e sem sobrescrever as versões anteriores. Ambas são prévias independentes. A revisão humana completa e a autorização para publicar a foto de Vorcaro continuam pendentes.
 
 O `ed002` iniciou o pipeline ancorado em palavra (`timing.py` + `AT()`), mas a versão de vídeo atual está reprovada para entrega por problemas de continuidade da narração; não use como modelo de locução final. Cada corte de duração é uma versão independente e precisa de QA e revisão humana próprios.
 
-Para retomar a revisão de variedade fotográfica da edição 003 em outra sessão, comece por `episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md`. O handoff registra as preferências do usuário, o estado da V5, os novos ativos e os próximos passos sem incluir quadros de renderização.
+Para retomar a revisão de variedade fotográfica da edição 003 em outra sessão, comece por `episodios/ed003/revisao_v6_imagens_variadas/HANDOFF_V6.md`. O handoff registra preferências, feedbacks que motivaram a V4/V5/V6, sincronização, estado técnico, direitos pendentes e próximos passos.
